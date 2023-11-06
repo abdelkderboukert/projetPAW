@@ -55,16 +55,22 @@ def home():
 def login():
     email = None 
     password = None
+    user = None
+    passed = None
     form=loginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
+        passed = check_password_hash(user.password_hash, form.password.data )
         if user is None :
             form.password.data = ''
             form.email.data = ''
             flash(" this account does not exist")
             return render_template('login.html', email = email, password = password, form = form)
         else :
-            return render_template('home.html')
+            if passed is True :
+                return render_template('home.html')
+            else :
+                form.password.data = ''
         
     else :
       return render_template('login.html', email = email, password = password, form = form)
@@ -76,7 +82,9 @@ def add_user():
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         if user is None:
-            user = User(name=form.name.data, email=form.email.data, password_hash=form.password_hash.data)
+            #hash password!!
+            hashed_pw = generate_password_hash(form.password_hash.data)
+            user = User(name=form.name.data, email=form.email.data, password_hash=hashed_pw)
             db.session.add(user)
             db.session.commit()
 

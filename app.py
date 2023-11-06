@@ -56,7 +56,7 @@ class userForm(FlaskForm):
     email = StringField("email", validators=[DataRequired()])
     password_hash = PasswordField("password", validators=[DataRequired(), equal_to('password_hash2', message='password must match!')])
     password_hash2 = PasswordField("password", validators=[DataRequired()]) 
-    submit = SubmitField('login') 
+    submit = SubmitField('creat a new account') 
 
 class loginForm(FlaskForm):
     email = StringField("email", validators=[DataRequired()])
@@ -104,8 +104,8 @@ def add_user():
             db.session.add(user)
             db.session.commit()
 
-            flash("welcome on our website")
-            return render_template('home.html')
+            flash("your account has been created please login ")
+            return render_template('login.html')
         else :
             flash("this accont already exist please try to login")
             return render_template('login.html')     
@@ -128,6 +128,5 @@ def log_out():
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
-        db.session.commit()
     
     serve(app, host='0.0.0.0', port=8080)

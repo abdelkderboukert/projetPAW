@@ -5,15 +5,25 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, ValidationError
 from wtforms.validators import DataRequired, equal_to, Length
 from flask_bcrypt import Bcrypt  # Import Bcrypt
-from flask_login import UserMixin, login_user, login_manager, logout_user, login_required, current_user, login_remembered
+from flask_login import UserMixin, login_user, login_manager, logout_user, login_required, current_user, login_remembered,LoginManager
 from werkzeug.security import generate_password_hash, check_password_hash
+from datetime import date
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '5511467d654732b6d9875da2691f78fd'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///user.db'
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)  # Initialize Bcrypt
+# flask_login stuff
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
 #the module
-class User(db.Model):
+class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     neme = db.Column(db.String(30), unique=True, nullable=False)
     email = db.Column(db.String(50), unique=True, nullable=False)
@@ -33,6 +43,13 @@ class User(db.Model):
     def __repr__(self):
         return '<name %r>' % self.name
 
+class to_do(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(50), nullable=False)
+    text = db.Column(db.Text)
+    id_user = db.Column(db.String(5000000000), nullable=False)
+    date_to_do = db.Column(db.DateTime)
+
 #the forms
 class userForm(FlaskForm):
     name = StringField("name", validators=[DataRequired()])
@@ -47,16 +64,13 @@ class loginForm(FlaskForm):
     submit = SubmitField('login')     
     
 @app.route('/')
+@login_required
 def home():
     name = "moh"
     return render_template('home.html', name= name)
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
-    email = None 
-    password = None
-    user = None
-    passed = None
     form=loginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
@@ -65,15 +79,17 @@ def login():
             form.password.data = ''
             form.email.data = ''
             flash(" this account does not exist")
-            return render_template('login.html', email = email, password = password, form = form)
+            return render_template('login.html', form = form)
         else :
             if passed is True :
-                return render_template('home.html')
+                flash("login successful")
+                return redirect(url_for('home'))
             else :
+                flash("wrong password try again")
                 form.password.data = ''
         
     else :
-      return render_template('login.html', email = email, password = password, form = form)
+      return render_template('login.html', form = form)
 
 @app.route('/add_user', methods = ['POST' , 'GET'])
 def add_user():
@@ -102,6 +118,12 @@ def add_user():
         return render_template('add_user.html',
                                form = form,
                                name = name)
+
+@app.route('/logout', methods = ['GET', 'POST'])
+@login_required
+def log_out():
+    logout_user()
+    return redirect(url_for('login'))
 
 if __name__ == "__main__":
     with app.app_context():

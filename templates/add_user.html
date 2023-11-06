@@ -164,8 +164,14 @@ button {
               <div class="inputbox">
                 <ion-icon name="lock-closed-outline"></ion-icon>
                 {{ form.hidden_tag() }}
-                {{ form.password() }}
+                {{ form.password_hash() }}
                 <label for="">Password</label>
+              </div>
+              <div class="inputbox">
+                <ion-icon name="lock-closed-outline"></ion-icon>
+                {{ form.hidden_tag() }}
+                {{ form.password_hash2() }}
+                <label for="">password confirmation</label>
               </div>
               <div class="forget">
                 <label>

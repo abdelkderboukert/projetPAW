@@ -8,6 +8,8 @@ from flask_bcrypt import Bcrypt  # Import Bcrypt
 from flask_login import UserMixin, login_user, login_manager, logout_user, login_required, current_user, login_remembered,LoginManager
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import date
+from wtforms.widgets import TextArea
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '5511467d654732b6d9875da2691f78fd'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///user.db'
@@ -63,11 +65,17 @@ class loginForm(FlaskForm):
     password = PasswordField("password", validators=[DataRequired()]) 
     submit = SubmitField('login')     
     
+class todoForm(FlaskForm):
+    title = StringField("title", validators=[DataRequired()])
+    text = StringField("text", widget=TextArea())
+    date_to_do = StringField("date_to_do", validators=[DataRequired()])
+    submit = SubmitField('create')
+
 @app.route('/')
 @login_required
 def home():
-    name = "moh"
-    return render_template('home.html', name= name)
+    daily = to_do.query.order_by(date_to_do)
+    return render_template('home.html',daily=daily)
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
@@ -124,6 +132,22 @@ def add_user():
 def log_out():
     logout_user()
     return redirect(url_for('login'))
+
+@app.route('/add-daily', methods = ['GET', 'POST'])
+def add_daily():
+    form = todoForm()
+    if form.validate_on_submit():
+        todo = to_do(title=form.title.data, text=form.text.data, date_to_do=form.date_to_do.data)
+        form.title.data = ''
+        form.text.data = ''
+        form.date_to_do.data = ''
+
+        db.session.add(todo)
+        db.session.commit()
+        flash("submitted successfully")
+
+    return render_template('add_daily.gtml', form=form)
+
 
 @app.route('/testhome', methods = ['GET','POST'])
 def test_home():

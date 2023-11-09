@@ -105,10 +105,10 @@ def add_user():
             db.session.commit()
 
             flash("your account has been created please login ")
-            return render_template('login.html')
+            return redirect(url_for('login'))
         else :
             flash("this accont already exist please try to login")
-            return render_template('login.html')     
+            return redirect(url_for('login'))     
     else :
         name = form.name.data
         form.name.data = ''
@@ -124,6 +124,10 @@ def add_user():
 def log_out():
     logout_user()
     return redirect(url_for('login'))
+
+@app.route('/testhome', methods = ['GET','POST'])
+def test_home():
+    return render_template('test.html')
 
 if __name__ == "__main__":
     with app.app_context():

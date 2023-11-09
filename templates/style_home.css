@@ -162,7 +162,7 @@ section.dark .div3{
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  overflow: auto;
+ /* overflow: auto;*/
 }
 section.dark .div1 .todo{
   background-color: #323840;
@@ -183,7 +183,7 @@ section.dark .title_todo{
   color: #fff;
 }
 .todo_con{
-  width: 425px;
+  width: 405px;
   height: 75px;
   border-radius: 20px;
   background-color: #F0F8FF;
@@ -194,6 +194,19 @@ section.dark .todo_con{
   background-color: #24292D;
   color: #fff;
 }
+.daily{
+  width: 440px;
+  height: 48vh;
+  margin: 10px;
+  border-radius: 20px;
+  background-color: #FFF;
+  overflow: auto;
+
+}
+section.dark .daily{
+  background-color: #323840;
+}
+
 /**{
   margin: 0;
   padding: 0;

@@ -27,7 +27,7 @@ def load_user(user_id):
 #the module
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
-    neme = db.Column(db.String(30), unique=True, nullable=False)
+    name = db.Column(db.String(30), unique=True, nullable=False)
     email = db.Column(db.String(50), unique=True, nullable=False)
     password_hash = db.Column(db.String(200), nullable=False)
     
@@ -74,7 +74,7 @@ class todoForm(FlaskForm):
 @app.route('/')
 @login_required
 def home():
-    daily = to_do.query.order_by(date_to_do)
+    daily = to_do.query.order_by(to_do.date_to_do)
     return render_template('home.html',daily=daily)
 
 @app.route('/login', methods=['POST', 'GET'])
@@ -82,7 +82,7 @@ def login():
     form=loginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
-        passed = check_password_hash(user.password_hash, form.password.data )
+        passed = check_password_hash(User.password_hash, form.password.data )
         if user is None :
             form.password.data = ''
             form.email.data = ''

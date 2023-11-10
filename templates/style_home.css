@@ -199,6 +199,7 @@ section.dark .todo_con{
   height: 48vh;
   margin: 10px;
   border-radius: 20px;
+  line-height: 50px;
   background-color: #FFF;
   overflow: auto;
 

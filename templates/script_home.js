@@ -27,4 +27,3 @@ setInterval(() => {
   document.querySelector(".sec_num").innerText = sec;
   document.querySelector(".am_pm").innerText = d;
 }, 1000); // 1000 milliseconds = 1s
-

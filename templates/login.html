@@ -3,8 +3,7 @@
 {{login}}
 {%endblock%}
 {% block head %}
-<style>
-* {
+<style>* {
   margin: 0;
   padding: 0;
   font-family: "Poppins", sans-serif;
@@ -141,8 +140,7 @@ button {
 
 .register p a:hover {
   text-decoration: underline;
-} 
-</style>
+} </style>
 {% endblock %}
 {%block body%}
 
@@ -152,7 +150,7 @@ button {
       <form method="POST">
         <h2>Login</h2>
         <div class="inputbox">
-          <ion-icon name="mail-outline"></ion-icon>
+          <icon-icon name="mail-outline"></icon-icon>
           {{ form.hidden_tag() }}
           {{ form.email() }}
           <label for="">Email</label>

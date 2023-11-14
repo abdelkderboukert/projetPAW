@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}
-
+home
 {%endblock%}
 {% block head %}
 <style>
@@ -194,7 +194,6 @@ section.dark .title_todo{
   border-radius: 20px;
   background-color: #F0F8FF;
   margin: 10px;
-  overflow-y: auto;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 section.dark .todo_con{
@@ -214,13 +213,56 @@ section.dark .todo_con{
 section.dark .daily{
   background-color: #323840;
 }
-.todo_con:hover{
-  height: 263px;
-  
+
+/**{
+  margin: 0;
+  padding: 0;
+  font-family: cursive;
+  box-sizing: border;
+  /*flex-direction: column;*/
+/*}
+.flex-container{
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  /*justify-content: center;*/
+  /*justify-content: space-around;*/
+/*}
+.flex-box1{
+  width: 20%;
+  height: 100vh;
+  background: linear-gradient(red, purple);
+  color: white;
+  text-align: center;
+  line-height: 200px;
+  border-radius: 20px;
+  margin: 10px;
 }
+.flex-box2{
+  width: 45%;
+  height: 100vh;
+  background: linear-gradient(red, purple);
+  color: white;
+  text-align: center;
+  line-height: 200px;
+  border-radius: 20px;
+  margin: 10px;
+}
+.flex-box3{
+  width: 30%;
+  height: 100vh;
+  background: linear-gradient(red, purple);
+  color: white;
+  text-align: center;
+  line-height: 200px;
+  border-radius: 20px;
+  margin: 10px;
+}*/
 </style>
 {%endblock%}
-{%block body%}
+{% block body %}
+
 <section>
     <div class="div3"></div>
     <div class="div2"></div>
@@ -259,9 +301,11 @@ section.dark .daily{
         <h3>your daily for today</h3>
       </div>
       <div class="daily">
+        {% for dailys in daily %}
         <div class="todo_con">
-          <h5></h5>
+          <h5>{{ post.title }}</h5>
         </div>
+        {% endfor %}
       </div>
     </div>
     </div>
@@ -270,4 +314,4 @@ section.dark .daily{
     <script  src="./script_home.js"></script>
   
 <a href="{{ url_for('log_out' )}}"><button>logout</button></a>
-{%endblock%}
+{% endblock %}

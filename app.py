@@ -80,9 +80,11 @@ def home():
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     form=loginForm()
+    for i in enumerate(form):
+        print(i[1].data)
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
-        passed = check_password_hash(User.password_hash, form.password.data )
+        passed = check_password_hash(user.password_hash, form.password.data )
         if user is None :
             form.password.data = ''
             form.email.data = ''
@@ -91,6 +93,7 @@ def login():
         else :
             if passed is True :
                 flash("login successful")
+                login_user(user)
                 return redirect(url_for('home'))
             else :
                 flash("wrong password try again")
@@ -101,10 +104,11 @@ def login():
 
 @app.route('/add_user', methods = ['POST' , 'GET'])
 def add_user():
-    name = None
     form = userForm()
     if form.validate_on_submit():
+        print(form.email.data)
         user = User.query.filter_by(email=form.email.data).first()
+        print('''user: {user}''')
         if user is None:
             #hash password!!
             hashed_pw = generate_password_hash(form.password_hash.data)
@@ -118,14 +122,9 @@ def add_user():
             flash("this accont already exist please try to login")
             return redirect(url_for('login'))     
     else :
-        name = form.name.data
-        form.name.data = ''
-        form.email.data = ''
-        form.password_hash.data = ''
-        form.password_hash2.data = ''
         return render_template('add_user.html',
                                form = form,
-                               name = name)
+                               )
 
 @app.route('/logout', methods = ['GET', 'POST'])
 @login_required
@@ -146,7 +145,7 @@ def add_daily():
         db.session.commit()
         flash("submitted successfully")
 
-    return render_template('add_daily.gtml', form=form)
+    return render_template('add_daily.html', form=form)
 
 
 @app.route('/testhome', methods = ['GET','POST'])

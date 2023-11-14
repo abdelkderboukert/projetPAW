@@ -27,9 +27,9 @@ def load_user(user_id):
 #the module
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(30), unique=True, nullable=False)
+    name = db.Column(db.String(30), nullable=False)
     email = db.Column(db.String(50), unique=True, nullable=False)
-    password_hash = db.Column(db.String(200), nullable=False)
+    password_hash = db.Column(db.String(20000), nullable=False)
     
     @property
     def password(self):
@@ -72,36 +72,32 @@ class todoForm(FlaskForm):
     submit = SubmitField('create')
 
 @app.route('/')
-@login_required
+#@login_required
 def home():
     daily = to_do.query.order_by(to_do.date_to_do)
     return render_template('home.html',daily=daily)
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
-    form=loginForm()
+    form = loginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
-        passed = check_password_hash(User.password_hash, form.password.data )
-        if user is None :
+        if user is None:
             form.password.data = ''
             form.email.data = ''
-            flash(" this account does not exist")
-            return render_template('login.html', form = form)
-        else :
-            if passed is True :
-                flash("login successful")
+            flash("This account does not exist")
+            return render_template('login.html', form=form)
+        else:
+            if user.verify_password(form.password.data):
+                #login_user(user, remember=form.remember.data)
+                flash("Login successful")
                 return redirect(url_for('home'))
-            else :
-                flash("wrong password try again")
-                form.password.data = ''
-        
-    else :
-      return render_template('login.html', form = form)
+            else:
+                flash("Wrong password, try again")
+    return render_template('login.html', form=form)
 
 @app.route('/add_user', methods = ['POST' , 'GET'])
 def add_user():
-    name = None
     form = userForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
@@ -111,24 +107,22 @@ def add_user():
             user = User(name=form.name.data, email=form.email.data, password_hash=hashed_pw)
             db.session.add(user)
             db.session.commit()
-
+            print(user.name)
             flash("your account has been created please login ")
             return redirect(url_for('login'))
         else :
             flash("this accont already exist please try to login")
             return redirect(url_for('login'))     
     else :
-        name = form.name.data
         form.name.data = ''
         form.email.data = ''
         form.password_hash.data = ''
         form.password_hash2.data = ''
         return render_template('add_user.html',
-                               form = form,
-                               name = name)
+                               form = form)
 
 @app.route('/logout', methods = ['GET', 'POST'])
-@login_required
+#@login_required
 def log_out():
     logout_user()
     return redirect(url_for('login'))

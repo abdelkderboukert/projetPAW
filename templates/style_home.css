@@ -188,6 +188,7 @@ section.dark .title_todo{
   border-radius: 20px;
   background-color: #F0F8FF;
   margin: 10px;
+  overflow-y: auto;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 section.dark .todo_con{
@@ -207,7 +208,10 @@ section.dark .todo_con{
 section.dark .daily{
   background-color: #323840;
 }
-
+.todo_con:hover{
+  height: 263px;
+  
+}
 /**{
   margin: 0;
   padding: 0;

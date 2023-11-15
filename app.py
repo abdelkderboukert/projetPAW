@@ -148,9 +148,10 @@ def add_daily():
     return render_template('add_daily.html', form=form)
 
 
-@app.route('/testhome', methods = ['GET','POST'])
-def test_home():
-    return render_template('test.html')
+@app.route('/profil', methods = ['GET','POST'])
+def profil():
+    
+    return render_template('profil.html')
 
 if __name__ == "__main__":
     with app.app_context():

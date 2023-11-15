@@ -153,6 +153,10 @@ def profil():
     
     return render_template('profil.html')
 
+@app.route('/arvhive', methods = ['GET', 'POST'])
+def archive():
+    return render_template('archive.html')
+
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()

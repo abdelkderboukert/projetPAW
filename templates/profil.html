@@ -9,8 +9,13 @@
 <body>
   <section>
     <div class="main">
-
+      <img src="{{ url_for('static', filename='photo/35c7c8728b6c339d62f7996c2a9543c2.jpg')}}" alt="#" class="ayaka">
+     <strong>id:</strong>{{ current_user.id }}<rb/>
+     <strong>name:</strong>{{ current_user.name }}<rb/>
+     <strong>email:</strong>{{ current_user.email }}<rb/>
+     
     </div>
+    <a href="{{ url_for('log_out' )}}"><button>logout</button></a>
   </section>
 </body>
 </html>

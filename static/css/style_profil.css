@@ -16,13 +16,28 @@
   }
   .main {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    /*align-items: center;*/
+    /*justify-content: center;*/
     height: 500px;
     max-width: 900px;
     width: 100%;
     background: #fff;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
     border-radius: 12px;
-    position: relative;
+    /*position: relative;*/
+    flex-direction: column;
+  }
+  section.dark{
+    background: #24292D;
+  }
+  section.dark .main{
+    background-color: #323840;
+  }
+  img{
+    height: 200px;
+    width: 100%;
+    min-width: 500px;
+  }
+  .ayaka{
+    border-radius: 10px 10px 0px 0px;
   }

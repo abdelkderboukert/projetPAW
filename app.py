@@ -149,6 +149,7 @@ def add_daily():
 
 
 @app.route('/profil', methods = ['GET','POST'])
+@login_required
 def profil():
     
     return render_template('profil.html')

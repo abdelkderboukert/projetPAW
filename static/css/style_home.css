@@ -162,6 +162,7 @@ section.dark .div3{
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
  /* overflow: auto;*/
 }
 section.dark .div1 .todo{
@@ -206,6 +207,47 @@ section.dark .todo_con{
 }
 section.dark .daily{
   background-color: #323840;
+}
+.navbar{
+  width: 90%;
+  height: 98%;
+  background-color: #fff;
+  border-radius: 10px;
+  margin: 10px;
+  justify-content: center;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+section.dark .navbar{
+  background-color: #323840;
+}
+.div3 .navbar a{
+  color: #24292D;
+  text-decoration: none;
+}
+section.dark .navbar a h3{
+  color: #fff;
+}
+.log_out{
+ /* height: 50px;
+  width: 100%;
+  border-radius: 10px;
+  background-color: #F0F8FF;*/
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: blue;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+ 
+  
+}
+section.dark .log_out{
+  background-color: #24292D;
+  color: #fff;
 }
 
 /**{

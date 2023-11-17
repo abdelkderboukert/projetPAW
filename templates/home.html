@@ -8,7 +8,14 @@ home
 {% block body %}
 
 <section>
-    <div class="div3"></div>
+    <div class="div3">
+      <div class="navbar">
+        <a href="{{ url_for('profil') }}"><h3>. profil</h3></a><br/>
+        <a href="{{ url_for('archive') }}"><h3>. archive</h3></a><br/>
+        <a href="{{ url_for('profil') }}"><h3>. what aver</h3></a><br/>
+        <a href="{{ url_for('log_out' )}}"><button class="log_out">logout</button></a>
+      </div>
+    </div>
     <div class="div2"></div>
     <div class="div1">
     <div class="container">
@@ -55,6 +62,5 @@ home
     </div>
   
   </section>
-<a href="{{ url_for('log_out' )}}"><button>logout</button></a>
 <script src="{{ url_for('static', filename='js/home.js')}}"></script>
 {% endblock %}

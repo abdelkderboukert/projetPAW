@@ -33,11 +33,34 @@
   section.dark .main{
     background-color: #323840;
   }
-  img{
+  .ayaka{
+    border-radius: 10px 10px 0px 0px;
     height: 200px;
     width: 100%;
     min-width: 500px;
   }
-  .ayaka{
-    border-radius: 10px 10px 0px 0px;
+  button{
+    height: 40px;
+    width: 100px;
+    background-color: #fff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    position: absolute;
+    right: 0;
+    align-items: flex-start;
+  }
+  .log_out{
+    background-color: #F0F8FF;*/
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    height: 40px;
+    width: 300px;
   }

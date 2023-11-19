@@ -13,10 +13,10 @@
      <strong>id:</strong>{{ current_user.id }}<rb/>
      <strong>name:</strong>{{ current_user.name }}<rb/>
      <strong>email:</strong>{{ current_user.email }}<rb/>
-     <a href="{{ url_for('log_out' )}}"><button class="log_out"><h2>logout</h2></button></a>
+     <button class="ds">dark mode</button>
     </div>
-   
+   <a href="{{ url_for('log_out' )}}"><button class="log_out"><h2>logout</h2></button></a>
   </section> 
-  
+  <script src="{{ url_for('static', filename='js/profil.js')}}"></script>
 </body>
 </html>

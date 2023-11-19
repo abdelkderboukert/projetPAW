@@ -26,7 +26,7 @@ section .div1 .container{
   justify-content: center;
   height: 200px;
   max-width: 460px;
-  width: 100%;
+  width: 460px;
   margin: 10px;
   background: #fff;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
@@ -121,7 +121,7 @@ section.dark  .time .time-colon .text{
   color: #fff;
 }
 .div1{
-  width: 38%;
+  width: /*38%*/ 460px;
   height: 100vh;
   background: #F0F8FF;
   align-items: center;
@@ -228,64 +228,18 @@ section.dark .navbar a h3{
   color: #fff;
 }
 .log_out{
- /* height: 50px;
+ height: 50px;
   width: 100%;
   border-radius: 10px;
-  background-color: #F0F8FF;*/
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: blue;
-  color: white;
+  background-color: #F0F8FF; 
   border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  cursor: pointer;
- 
-  
 }
 section.dark .log_out{
   background-color: #24292D;
   color: #fff;
 }
 
-/**{
-  margin: 0;
-  padding: 0;
-  font-family: cursive;
-  box-sizing: border;
-  /*flex-direction: column;*/
-/*}
-.flex-container{
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  flex-wrap: wrap;
-  /*justify-content: center;*/
-  /*justify-content: space-around;*/
-/*}
-.flex-box1{
-  width: 20%;
-  height: 100vh;
-  background: linear-gradient(red, purple);
-  color: white;
-  text-align: center;
-  line-height: 200px;
-  border-radius: 20px;
-  margin: 10px;
-}
-.flex-box2{
-  width: 45%;
-  height: 100vh;
-  background: linear-gradient(red, purple);
-  color: white;
-  text-align: center;
-  line-height: 200px;
-  border-radius: 20px;
-  margin: 10px;
-}
-.flex-box3{
+/*.flex-box3{
   width: 30%;
   height: 100vh;
   background: linear-gradient(red, purple);

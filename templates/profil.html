@@ -10,10 +10,18 @@
   <section>
     <div class="main">
       <img src="{{ url_for('static', filename='photo/35c7c8728b6c339d62f7996c2a9543c2.jpg')}}" alt="#" class="ayaka">
-     <strong>id:</strong>{{ current_user.id }}<rb/>
-     <strong>name:</strong>{{ current_user.name }}<rb/>
-     <strong>email:</strong>{{ current_user.email }}<rb/>
-     <button class="ds">dark mode</button>
+      <div class="container">
+        <div class="info">
+           <img src="{{ url_for('static', filename='photo/35c7c8728b6c339d62f7996c2a9543c2.jpg')}}" alt="#" class="ph"><br/>
+           <p class="ppp">id:{{ current_user.id }}</p><rb/>
+           <p class="ppp">name:{{ current_user.name }}</p><rb/>
+           <p class="ppp">email:{{ current_user.email }}</p><rb/>
+        </div>
+        <div class="info2">
+        <!--daigram-->
+       </div>
+       <button class="ds">dark mode</button><!---->
+      </div>
     </div>
    <a href="{{ url_for('log_out' )}}"><button class="log_out"><h2>logout</h2></button></a>
   </section> 

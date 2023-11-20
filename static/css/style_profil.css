@@ -1,9 +1,14 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
     font-family: "Poppins", sans-serif;
   }
   
+  :root {
+    --numm: 0
+  }
+
   section {
     display: flex;
     justify-content: center;
@@ -79,6 +84,7 @@
     border-radius: 20px;
     margin: 10px;
     line-height: 30px;
+    
     text-align: center;
     align-items: center;
     justify-content: center;
@@ -88,11 +94,12 @@
   .info2{
     width: 300px;
     height: 95%;
+    display: flex;
     background-color: #ffff;
     align-items: center;
     text-align: center;
     justify-content: center;
- 
+    flex-direction: column;
   }
 
   section.dark .info{
@@ -123,3 +130,57 @@
   section.dark .container{
     background-color: #323840;
   }
+
+  .skill{
+    width: 160px;
+    height: 160px;
+    position: relative;
+  }
+ .outer{
+  height: 180px;
+  width: 180px;
+  border-radius: 50%;
+  padding: 20px;
+  box-shadow: 6px 6px 10px -1px rgba(0, 0, 0, 0.15),
+              -6px -6px 10px -1px rgba(0, 0, 0, 0.15)
+ } 
+ .inner{
+  height: 140px;
+  width: 140px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 4px 4px 6px -1px rgba(0, 0, 0, 0.2),
+              inset -4px -4px 6px -1px rgba(0, 0, 0, 0.15),
+              0.5px 0.5px 0px rgba(0, 0, 0, 0.15),
+              0px 12px 10px -10px rgba(0, 0, 0, 0.05);
+ }
+ #number{
+  font-weight: 600px;
+  color: #24292D;
+ }
+ circle{
+  fill: none;
+  stroke: url(#GradientColor);
+  stroke-width: 20px;
+  stroke-dasharray: 472;
+  stroke-dashoffset: 472;
+  animation: anim 2s linear forwards;
+ }
+
+ section.dark #number{
+  color: #f0f8ff;
+ }
+
+ svg{
+  position: absolute;
+  top: 0;
+  left: 0;
+ }
+
+ @keyframes anim{
+  100%{
+    stroke-dashoffset: var(--numm);
+  }
+ }

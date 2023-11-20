@@ -151,12 +151,16 @@ def add_daily():
 @app.route('/profil', methods = ['GET','POST'])
 @login_required
 def profil():
-    
-    return render_template('profil.html')
+    num = 60
+    return render_template('profil.html', num = num)
 
 @app.route('/arvhive', methods = ['GET', 'POST'])
 def archive():
     return render_template('archive.html')
+
+@app.route('/test', methods = ['GET','POST'])
+def test():
+    return render_template('test.html')
 
 if __name__ == "__main__":
     with app.app_context():

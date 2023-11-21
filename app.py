@@ -7,7 +7,7 @@ from wtforms.validators import DataRequired, equal_to, Length
 from flask_bcrypt import Bcrypt  # Import Bcrypt
 from flask_login import UserMixin, login_user, login_manager, logout_user, login_required, current_user, login_remembered,LoginManager
 from werkzeug.security import generate_password_hash, check_password_hash
-from datetime import date
+import datetime
 from wtforms.widgets import TextArea
 
 app = Flask(__name__)
@@ -50,7 +50,9 @@ class to_do(db.Model):
     title = db.Column(db.String(50), nullable=False)
     text = db.Column(db.Text)
     id_user = db.Column(db.String(5000000000), nullable=False)
-    date_to_do = db.Column(db.DateTime)
+    date_to_do = db.Column(db.DateTime, nullable=False)
+    #hour_to_do = db.Column(db.String(2), nullable=False)
+    #min_to_do = db.Column(db.String(2), nullable=False)
 
 #the forms
 class userForm(FlaskForm):
@@ -69,13 +71,17 @@ class todoForm(FlaskForm):
     title = StringField("title", validators=[DataRequired()])
     text = StringField("text", widget=TextArea())
     date_to_do = StringField("date_to_do", validators=[DataRequired()])
+    hour_to_do = StringField("hour_to_do", validators=[DataRequired()])
+    min_to_do = StringField("min_to_do", validators=[DataRequired()])
     submit = SubmitField('create')
 
 @app.route('/')
 @login_required
 def home():
     daily = to_do.query.order_by(to_do.date_to_do)
-    return render_template('home.html',daily=daily)
+    now = datetime.datetime.now()
+    date = now.strftime("%Y-%m-%d")
+    return render_template('home.html',daily=daily, date=date)
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
@@ -133,6 +139,7 @@ def log_out():
     return redirect(url_for('login'))
 
 @app.route('/add-daily', methods = ['GET', 'POST'])
+@login_required
 def add_daily():
     form = todoForm()
     if form.validate_on_submit():
@@ -155,12 +162,16 @@ def profil():
     return render_template('profil.html', num = num)
 
 @app.route('/arvhive', methods = ['GET', 'POST'])
+@login_required
 def archive():
     return render_template('archive.html')
 
 @app.route('/test', methods = ['GET','POST'])
 def test():
-    return render_template('test.html')
+    h = 5
+    m = 56
+    s = 40
+    return render_template('test.html', m =m, h = h, s = s)
 
 if __name__ == "__main__":
     with app.app_context():

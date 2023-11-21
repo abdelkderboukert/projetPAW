@@ -1,77 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-.circle {
- position: relative;
- width: 100px;
- height: 100px;
- background: #f3f3f3;
- border-radius: 50%;
-}
-
-.circle:after {
- content: "";
- position: absolute;
- width: 80px;
- height: 80px;
- background: blue;
- border-radius: 50%;
- top: 10px;
- left: 10px;
-}
-
-.circle:before {
- content: "";
- position: absolute;
- width: 100%;
- height: 100%;
- background: green;
- border-radius: 50%;
- top: 0;
- left: 0;
- z-index: -1;
- clip: rect(0px, 100px, 100px, 50px);
-}
-
-.circle .circle-text {
- position: absolute;
- top: 0;
- left: 0;
- width: 100%;
- height: 100%;
- display: flex;
- justify-content: center;
- align-items: center;
- font-size: 12px;
- color: #333;
-}
-</style>
+<title>ghr</title>
+<link href="{{ url_for('static', filename='css/style_profil.css')}}" rel="stylesheet">
 </head>
 <body>
+   <h1 id="h">{{ h }}</h1>:<h1 id="m">{{ m }}</h1>:<h1 id="s">{{ s }}</h1>
 
-<h2>Circular Progress Bar</h2>
-<p>The progress bar will spin indefinitely:</p>
-
-<div class="circle">
- <div class="circle-text">0%</div>
-</div>
-
-<script>
-const circle = document.querySelector('.circle');
-const circleText = document.querySelector('.circle-text');
-let percentage = 0;
-
-setInterval(() => {
- percentage += 1;
- if (percentage > 100) {
-    percentage = 0;
- }
-
- circleText.textContent = percentage + '%';
- circle.style.background = `conic-gradient(blue ${percentage}%, green ${percentage}%)`;
-}, 100);
-</script>
-
+   <script src="{{ url_for('static', filename='js/profil.js')}}"></script>
+   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 </html>

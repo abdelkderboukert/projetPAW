@@ -55,9 +55,13 @@
     background-color: red;
     color: white;
     border: none;
+    display: flex;
     border-radius: 5px;
     padding: 10px 20px;
     cursor: pointer;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
     height: 40px;
     width: 300px;
   }
@@ -68,10 +72,6 @@
     color: #24292D;
     border-radius: 10px;
     border: none;
-    position: absolute;
-    top: 41%;
-    left: 88%;
-    transform: translateY(0%);
   }
   section.dark .ds{
     background-color: #24292D;
@@ -102,6 +102,17 @@
     flex-direction: column;
   }
 
+  .info4{
+    width: 240px;
+    height: 95%;
+    display: flex;
+    background-color: #ffff;
+    align-items: center;
+    text-align: start;
+    justify-content: center;
+    flex-direction: column;
+  }
+
   section.dark .info{
   background-color: #24292D;
   }
@@ -127,6 +138,19 @@
     background-color: #323840;
   }
   
+  section.dark .info3{
+    background-color: #323840;
+  }
+
+  section.dark .info4{
+    background-color: #323840;
+    }
+
+  section.dark .option{
+    background-color: #323840;
+    color: #fff;
+  }
+
   section.dark .container{
     background-color: #323840;
   }
@@ -184,3 +208,25 @@
     stroke-dashoffset: var(--numm);
   }
  }
+ .info3{
+  width: 100px;
+  height: 95%;
+  background-color: #fff;
+  border-radius: 20px;
+  margin: 10px;
+  line-height: 30px;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  flex-direction: column;
+  /*position: relative;
+  left: 0;
+  margin-left: 25%;*/
+ }
+ .option{
+  height: 65px;
+  width: 100px;
+  background-color: #ffff;
+  color: #24292D;
+  border: none;
+}

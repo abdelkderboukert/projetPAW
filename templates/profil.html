@@ -37,13 +37,24 @@
             <circle cx="90" cy="90" r="80" stroke-linecap="round" />
            </svg>
         </div>
-        
-       </div>
-       <button class="ds">dark mode</button><!---->
+        </div>
+        <div class="info4">
+          <p>nambert to do that you mise it:<strong>400</strong></p><br/>
+          <p>namber to do that you do it:<strong>200</strong></p>
+        </div>
+        <div class="info3">
+        <button class="ds">dark mode</button>
+        <a href="{{ url_for('add_daily' )}}"><button class="option"><h2><ion-icon name="add-circle-outline"></ion-icon></h2><!--add daily--></button></a>
+        <a href="{{ url_for('archive' )}}"> <button class="option"><h2><ion-icon name="albums-outline"></ion-icon></h2><!--archive--></button></a>
+        <a href="{{ url_for('log_out' )}}"><button class="option"><h2><ion-icon name="list-outline"></ion-icon></h2><!--all the to do--></button></a>
+        <a href="{{ url_for('home' )}}"><button class="option"><h2><ion-icon name="home-outline"></ion-icon></h2><!--home--></button></a>
+        </div>
       </div>
     </div>
-   <a href="{{ url_for('log_out' )}}"><button class="log_out"><h2>logout</h2></button></a>
+   <a href="{{ url_for('log_out' )}}"><button class="log_out"><h2>logout<ion-icon name="log-out-outline"></ion-icon></h2></button></a>
   </section> 
   <script src="{{ url_for('static', filename='js/profil.js')}}"></script>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 </html>

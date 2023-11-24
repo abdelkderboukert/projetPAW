@@ -1,14 +1,44 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>ghr</title>
-<link href="{{ url_for('static', filename='css/style_profil.css')}}" rel="stylesheet">
-</head>
-<body>
-   <h1 id="h">{{ h }}</h1>:<h1 id="m">{{ m }}</h1>:<h1 id="s">{{ s }}</h1>
-
-   <script src="{{ url_for('static', filename='js/profil.js')}}"></script>
-   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-</body>
+  <head>
+    <title>ghr</title>
+    <link rel="website icon" type="png" href="" />
+    <link
+      href="{{ url_for('static', filename='css/style_test.css')}}"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <section>
+      <div class="container">
+        <div class="todo">
+          <div class="cherche">
+            <div class="#">
+              {{ form.hidden_tag() }}{{ form.search(class="nav") }}
+            </div>
+            <button id="bt2">
+              {{ form.hidden_tag() }}{{ form.submit(id="bt1") }}
+            </button>
+          </div>
+          <div class="main">
+            {% for daily in dailys %} {% if daily.date_to_do >= date %}
+            <div class="todo_con">
+              <h3>{{ daily.title }}</h3>
+            </div>
+            {% endif %} {% endfor %}
+          </div>
+        </div>
+        <div class="todof"></div>
+      </div>
+    </section>
+    <script src="{{ url_for('static', filename='js/test.js')}}"></script>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+  </body>
 </html>

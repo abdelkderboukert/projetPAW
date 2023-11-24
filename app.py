@@ -75,6 +75,11 @@ class todoForm(FlaskForm):
     min_to_do = StringField("min_to_do", validators=[DataRequired()])
     submit = SubmitField('create')
 
+class searchForm(FlaskForm):
+    search = StringField("search", validators=[DataRequired()])
+    submit = SubmitField('search')
+
+
 @app.route('/')
 @login_required
 def home():
@@ -155,7 +160,7 @@ def add_daily():
     return render_template('add_daily.html', form=form)
 
 
-@app.route('/profil', methods = ['GET','POST'])
+@app.route('/profil', methods = ['GET','POST'])#done
 @login_required
 def profil():
     num = 60
@@ -171,7 +176,14 @@ def test():
     h = 5
     m = 56
     s = 40
-    return render_template('test.html', m =m, h = h, s = s)
+    form = searchForm()
+    dailys = to_do.query
+    if form.validate_on_submit():
+        posts_shearch = form.search.data
+        dailys = dailys.filter(to_do.title.like('%'+ posts_shearch + '%'))
+        dailys = dailys.order_by(to_do.date_to_do)
+
+    return render_template('test.html', form=form, dailys=dailys)
 
 if __name__ == "__main__":
     with app.app_context():

@@ -228,17 +228,40 @@ section.dark .navbar a h3{
   color: #fff;
 }
 .log_out{
- height: 50px;
+  height: 50px;
   width: 100%;
   border-radius: 10px;
-  background-color: #F0F8FF; 
+  display: flex;
+  color: #FFF;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  background-color: red; 
   border: none;
 }
-section.dark .log_out{
+/*section.dark .log_out{
   background-color: #24292D;
   color: #fff;
+}*/
+.ph1{
+  height: 150px;
+  width: 100%;
+  border-radius: 10px 10px 0px 0px;
 }
-
+.pro{
+  height: 50px;
+  width: 100%;
+  background-color: #ffff;
+  color: #24292D;
+  border: none;
+}
+section.dark .pro{
+  background-color: #323840;
+}
+.esp{
+  height: 190px;
+  width: 100%;
+}
 /*.flex-box3{
   width: 30%;
   height: 100vh;

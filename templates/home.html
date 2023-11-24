@@ -1,52 +1,74 @@
-{% extends 'base.html' %}
-{% block title %}
-home
-{%endblock%}
-{% block head %}
-<link href="{{ url_for('static', filename='css/style_home.css')}}" rel="stylesheet">
-{%endblock%}
-{% block body %}
+{% extends 'base.html' %} {% block title %} home {%endblock%} {% block head %}
+<link
+  href="{{ url_for('static', filename='css/style_home.css')}}"
+  rel="stylesheet"
+/>
+{%endblock%} {% block body %}
 
 <section>
-    <div class="div3">
-      <div class="navbar">
-        <img src="{{ url_for('static', filename='photo/35c7c8728b6c339d62f7996c2a9543c2.jpg')}}" alt="#" class="ph"><br/>
-        <a href="{{ url_for('profil') }}"><h3>profil</h3></a><br/>
-        <a href="{{ url_for('archive') }}"><h3>archive</h3></a><br/>
-        <a href="{{ url_for('profil') }}"><h3>what aver</h3></a><br/>
-        <a href="{{ url_for('log_out' )}}"><button class="log_out">logout</button></a>
-      </div>
+  <div class="div3">
+    <div class="navbar">
+      <img
+        src="{{ url_for('static', filename='photo/35c7c8728b6c339d62f7996c2a9543c2.jpg')}}"
+        alt="#"
+        class="ph1"
+      /><br />
+      <a href="{{ url_for('profil') }}"><h3>{{ current_user.name }}</h3></a
+      ><br />
+      <a href="{{ url_for('archive') }}"
+        ><button class="pro">
+          <h3>
+            archive <ion-icon name="albums-outline"></ion-icon>
+          </h3></button></a
+      ><br />
+      <a href="{{ url_for('test') }}"
+        ><button class="pro">
+          <h3>
+            all the to do <ion-icon name="list-outline"></ion-icon>
+          </h3></button></a
+      ><br />
+      <a href="{{ url_for('add_daily') }}"
+        ><button class="pro">
+          <h3>
+            add daily <ion-icon name="add-circle-outline"></ion-icon>
+          </h3></button></a
+      ><br />
+      <div class="esp"></div>
+      <a href="{{ url_for('log_out' )}}">
+        <button class="log_out"><h2>logout</h2></button>
+      </a>
     </div>
-    <div class="div2">{{ date }} </div>
-    <div class="div1">
+  </div>
+  <div class="div2"></div>
+  <div class="div1">
     <div class="container">
-          <div class="icons">
-             <i class="fas fa-moon"></i>
-             <i class="fas fa-sun"></i>
+      <div class="icons">
+        <i class="fas fa-moon"></i>
+        <i class="fas fa-sun"></i>
+      </div>
+      <div class="time">
+        <div class="time-colon">
+          <div class="time-text">
+            <span class="num hour_num">08</span>
+            <span class="text">Hours</span>
           </div>
-          <div class="time">
-          <div class="time-colon">
-              <div class="time-text">
-                  <span class="num hour_num">08</span>
-                  <span class="text">Hours</span>
-              </div>
-              <span class="colon">:</span>
+          <span class="colon">:</span>
+        </div>
+        <div class="time-colon">
+          <div class="time-text">
+            <span class="num min_num">45</span>
+            <span class="text">Minutes</span>
           </div>
-          <div class="time-colon">
-              <div class="time-text">
-                 <span class="num min_num">45</span>
-                 <span class="text">Minutes</span>
-              </div>
-              <span class="colon">:</span>
+          <span class="colon">:</span>
+        </div>
+        <div class="time-colon">
+          <div class="time-text">
+            <span class="num sec_num">06</span>
+            <span class="text">Seconds</span>
           </div>
-          <div class="time-colon">
-              <div class="time-text">
-                 <span class="num sec_num">06</span>
-                 <span class="text">Seconds</span>
-              </div>
-              <span class="am_pm">AM</span>
-          </div>
-          </div>
+          <span class="am_pm">AM</span>
+        </div>
+      </div>
     </div>
     <div class="todo">
       <div class="title_todo">
@@ -54,16 +76,23 @@ home
       </div>
       <div class="daily">
         {% for dailys in daily %}
-        {% if dailys.date_to_do == date %}
+        <!--{% if dailys.date_to_do == date %}-->
         <div class="todo_con">
-          <h5>{{ dailys.title }}</h5>
+          <h3>{{ dailys.name }}</h3>
         </div>
-        {% endif %}
+        <!--{% endif %}-->
         {% endfor %}
       </div>
     </div>
-    </div>
-  
-  </section>
+  </div>
+</section>
 <script src="{{ url_for('static', filename='js/home.js')}}"></script>
+<script
+  type="module"
+  src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+></script>
+<script
+  nomodule
+  src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+></script>
 {% endblock %}

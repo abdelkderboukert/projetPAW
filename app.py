@@ -88,7 +88,7 @@ def home():
     date = now.strftime("%Y-%m-%d")
     return render_template('home.html',daily=daily, date=date)
 
-@app.route('/login', methods=['POST', 'GET'])
+@app.route('/login', methods=['POST', 'GET'])#done
 def login():
     form=loginForm()
     for i in enumerate(form):
@@ -109,11 +109,12 @@ def login():
             else :
                 flash("wrong password try again")
                 form.password.data = ''
+                return render_template('login.html', form = form)
         
     else :
       return render_template('login.html', form = form)
 
-@app.route('/add_user', methods = ['POST' , 'GET'])
+@app.route('/add_user', methods = ['POST' , 'GET'])#done
 def add_user():
     form = userForm()
     if form.validate_on_submit():
@@ -137,7 +138,7 @@ def add_user():
                                form = form,
                                )
 
-@app.route('/logout', methods = ['GET', 'POST'])
+@app.route('/logout', methods = ['GET', 'POST'])#done
 @login_required
 def log_out():
     logout_user()

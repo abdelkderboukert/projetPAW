@@ -10,4 +10,22 @@ test(() => {
     print("haha");
   }
 }, 1000);
-//recherches
+
+let section = document.querySelector("section"),
+  ds = document.querySelector(".ds");
+
+ds.onclick = () => {
+  section.classList.toggle("dark");
+};
+
+let button = document.querySelector(".container .ds");
+let text = document.querySelector(".container .ds");
+let isOriginalText = true;
+button.addEventListener("click", function () {
+  if (isOriginalText) {
+    text.textContent = "light mode";
+  } else {
+    text.textContent = "dark mode";
+  }
+  isOriginalText = !isOriginalText;
+});

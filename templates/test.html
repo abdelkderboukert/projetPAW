@@ -14,11 +14,13 @@
         <div class="todo">
           <div class="cherche">
             <div class="#">
-              {{ form.hidden_tag() }}{{ form.search(class="nav") }}
+              {{ form.hidden_tag() }}{{ form.search(id="nav",
+              placeholder="search") }}
             </div>
             <button id="bt2">
               {{ form.hidden_tag() }}{{ form.submit(id="bt1") }}
             </button>
+            <button class="ds">dark mode</button>
           </div>
           <div class="main">
             {% for daily in dailys %} {% if daily.date_to_do >= date %}

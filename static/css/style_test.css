@@ -84,7 +84,7 @@ section.dark {
   border: none;
 }
 
-.ds {
+.drk {
   width: 100px;
   height: 40px;
   border-radius: 20px 20px 20px 20px;
@@ -93,7 +93,7 @@ section.dark {
   /*border: none;*/
 }
 
-section.darck .ds {
+section.darck .drk {
   background-color: #24292d;
 }
 
@@ -124,4 +124,30 @@ section.darck .ds {
   border-radius: 10px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   margin: 10px;
+}
+
+.inf {
+  width: 300px;
+  height: 450px;
+  background-color: aqua;
+  border-radius: 10px 10px 0px 0px;
+  display: flex;
+  flex-direction: row;
+}
+
+.navb {
+  height: 50px;
+  width: 300px;
+  border-radius: 0px 10px 0px 0px;
+  border-radius: 0px 0px 10px 10px;
+  display: flex;
+  flex-direction: row;
+}
+
+.option {
+  height: 50px;
+  width: 75px;
+  background-color: #fff;
+  border: none;
+  border-radius: 0px 0px 10px 10px;
 }

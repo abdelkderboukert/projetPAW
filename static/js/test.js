@@ -1,4 +1,4 @@
-h = document.getElementById("h").textContent;
+/*h = document.getElementById("h").textContent;
 m = document.getElementById("m").textContent;
 s = document.getElementById("s").textContent;
 test(() => {
@@ -12,14 +12,14 @@ test(() => {
 }, 1000);
 
 let section = document.querySelector("section"),
-  ds = document.querySelector(".ds");
+  ds = document.querySelector(".drk");
 
 ds.onclick = () => {
   section.classList.toggle("dark");
 };
 
-let button = document.querySelector(".container .ds");
-let text = document.querySelector(".container .ds");
+let button = document.querySelector(".container .drk");
+let text = document.querySelector(".container .drk");
 let isOriginalText = true;
 button.addEventListener("click", function () {
   if (isOriginalText) {
@@ -29,3 +29,13 @@ button.addEventListener("click", function () {
   }
   isOriginalText = !isOriginalText;
 });
+*/
+let todo = document.querySelectorAll(".container .todo .main .todo_con");
+let title1 = document.querySelector(".container .todof .inf h3");
+console.log(todo);
+for (const el of todo) {
+  el.addEventListener("click", function () {
+    const title = el.querySelector("h3");
+    title1.textContent = title.textContent;
+  });
+}

@@ -9,7 +9,7 @@ test(() => {
   if (h + 1 < hour && m < min) {
     print("haha");
   }
-}, 1000);
+}, 1000);*/
 
 let section = document.querySelector("section"),
   ds = document.querySelector(".drk");
@@ -29,7 +29,7 @@ button.addEventListener("click", function () {
   }
   isOriginalText = !isOriginalText;
 });
-*/
+/*0770396410 aymn familt 3mr*/
 let todo = document.querySelectorAll(".container .todo .main .todo_con");
 let title1 = document.querySelector(".container .todof .inf h3");
 console.log(todo);

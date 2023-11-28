@@ -54,6 +54,9 @@ class to_do(db.Model):
     #hour_to_do = db.Column(db.String(2), nullable=False)
     #min_to_do = db.Column(db.String(2), nullable=False)
 
+    def __repr__(self):
+        return '<name %r>' % self.name
+
 #the forms
 class userForm(FlaskForm):
     name = StringField("name", validators=[DataRequired()])

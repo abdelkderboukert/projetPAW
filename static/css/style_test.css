@@ -151,6 +151,10 @@ section.dark .todo_con {
   background-color: #24292d;
 }
 
+.todo_con h3 {
+  margin: 0pc 0px 0px 10px;
+}
+
 .todof {
   width: 300px;
   height: 500px;
@@ -171,12 +175,42 @@ section.dark .todof {
   background-color: #fff;
   border-radius: 10px 10px 10px 10px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
 section.dark .inf {
   background-color: #24292d;
   border: 2px solid white;
+}
+
+#titl {
+  /*line-height: 30px;*/
+  text-align: center;
+  margin: 40px 0px 70px 0px;
+}
+
+.ulinfo {
+  margin: 0px 0px 10px 30px;
+}
+
+#inf1 {
+  color: #4615b9;
+  margin: 0px 0px 0px 10px;
+}
+
+#inf2 {
+  color: #4615b9;
+  margin: 0px 0px 0px 10px;
+}
+
+#inf3 {
+  color: #4615b9;
+  margin: 0px 0px 0px 10px;
+}
+
+#txt {
+  margin: 50px 0px 0px 10px;
+  overflow: auto;
 }
 
 .navb {

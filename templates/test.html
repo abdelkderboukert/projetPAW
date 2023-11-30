@@ -1,119 +1,67 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>ghr</title>
-    <link rel="website icon" type="png" href="" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
-      href="{{ url_for('static', filename='css/style_test.css')}}"
+      href="{{ url_for('static', filename='css/test.css')}}"
       rel="stylesheet"
     />
+    <title>Document</title>
   </head>
   <body>
     <section>
-      <div class="container">
-        <div class="todo">
-          <div class="cherche">
-            <div class="#">
-              {{ form.hidden_tag() }}{{ form.search(id="nav",
-              placeholder="search") }}
-            </div>
-            <button id="bt2">
-              {{ form.hidden_tag() }}{{ form.submit(id="bt1") }}
-            </button>
-            <button class="drk">dark mode</button>
+      <div class="todof">
+        <div class="inf">
+          <div id="tit">
+            <h3 id="titl">go to the super market</h3>
           </div>
-          <div class="main">
-            {% for daily in dailys %} {% if daily.date_to_do >= date %}
-            <div class="todo_con">
-              <h3>{{ daily.title }}</h3>
-            </div>
-            {% endif %} {% endfor %}
-            <div class="todo_con">
-              <h3></h3>
-            </div>
-            <div class="todo_con">
-              <h3>db</h3>
-            </div>
-            <div class="todo_con">
-              <h3>eh</h3>
-            </div>
-            <div class="todo_con">
-              <h3>hbsg</h3>
-            </div>
-            <div class="todo_con">
-              <h3>dqfhqd</h3>
-            </div>
-            <div class="todo_con">
-              <h3>dhgbsgdh</h3>
-            </div>
-            <div class="todo_con">
-              <h3>rzgegh</h3>
-            </div>
-            <div class="todo_con">
-              <h3>go to the sopper market and bay some kake</h3>
-            </div>
-            <div class="todo_con">
-              <h3>clean my girl friend ass</h3>
-            </div>
+          <div class="conf">
+            <div class="tff" id="f1">date do</div>
+            <div class="tff" id="f2">hour do</div>
+            <div class="tff" id="f3">date creat</div>
           </div>
+          <div class="con">
+            <div class="tf" id="1">10-10-2023</div>
+            <div class="tf" id="2">9:30-12:00</div>
+            <div class="tf" id="3">15-9-2023</div>
+          </div>
+          <h2 id="det">details:</h2>
+          <p id="txt">
+            heth etheh egeqfg ehgqehg eghqfg qeghqfb hfb dhbdf hdfh dfghqdhf
+            dfbdhf efdfh egqfgqf
+          </p>
         </div>
-        <div class="todof">
-          <div class="inf">
-            <h3 id="titl"></h3>
-            <ul>
-              <li class="ulinfo">
-                <strong
-                  >date:
-                  <p id="inf1">10-10-2023</p></strong
-                >
-              </li>
-              <li class="ulinfo">
-                <strong
-                  >time to do:
-                  <p id="inf2">9:30-12:00</p></strong
-                >
-              </li>
-              <li class="ulinfo">
-                <strong
-                  >date make:
-                  <p id="inf3">15-9-2023</p></strong
-                >
-              </li>
-            </ul>
-            <p id="txt">
-              heth etheh egeqfg ehgqehg eghqfg qeghqfb hfb dhbdf hdfh dfghqdhf
-              dfbdhf efdfh egqfgqf
-            </p>
-          </div>
-          <div class="navb">
-            <a href="{{ url_for('add_daily' )}}"
-              ><button class="option">
-                <h2><ion-icon name="add-circle-outline"></ion-icon></h2>
-                <!--add daily-->
-              </button></a
-            >
-            <a href="{{ url_for('archive' )}}">
-              <button class="option">
-                <h2><ion-icon name="albums-outline"></ion-icon></h2>
-                <!--archive-->
-              </button>
-            </a>
-            <a href="{{ url_for('log_out' )}}"
-              ><button class="option">
-                <h2><ion-icon name="list-outline"></ion-icon></h2>
-                <!--all the to do-->
-              </button>
-            </a>
-            <a href="{{ url_for('home' )}}"
-              ><button class="option">
-                <h2><ion-icon name="home-outline"></ion-icon></h2>
-                <!--home-->
-              </button>
-            </a>
-          </div>
+        <div class="navb">
+          <a href="{{ url_for('add_daily' )}}"
+            ><button class="option">
+              <h2><ion-icon name="add-circle-outline"></ion-icon></h2>
+              <!--add daily-->
+            </button></a
+          >
+          <a href="{{ url_for('archive' )}}">
+            <button class="option">
+              <h2><ion-icon name="albums-outline"></ion-icon></h2>
+              <!--archive-->
+            </button>
+          </a>
+          <a href="{{ url_for('log_out' )}}"
+            ><button class="option">
+              <h2><ion-icon name="list-outline"></ion-icon></h2>
+              <!--all the to do-->
+            </button>
+          </a>
+          <a href="{{ url_for('home' )}}"
+            ><button class="option">
+              <h2><ion-icon name="home-outline"></ion-icon></h2>
+              <!--home-->
+            </button>
+          </a>
         </div>
       </div>
+      <button id="drk">dark mode</button>
     </section>
+
     <script src="{{ url_for('static', filename='js/test.js')}}"></script>
     <script
       type="module"

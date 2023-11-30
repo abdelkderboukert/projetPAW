@@ -1,8 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap");
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+  font-family: "Orbitron", sans-serif;
 }
 
 section {
@@ -42,6 +43,7 @@ section.dark {
 
 section.dark .todo {
   background-color: #323840;
+  box-shadow: 0 5px 10px #00001a;
 }
 
 .cherche {
@@ -75,6 +77,7 @@ section.dark .todo {
 section.dark #bt1 {
   background-color: #24292d;
   color: #fff;
+  box-shadow: 0 5px 10px #00001a;
 }
 
 section.dark #bt2 {
@@ -96,6 +99,7 @@ section.dark #bt2 {
 section.dark #nav {
   background-color: #323840;
   color: #fff;
+  box-shadow: 0 5px 10px #00001a;
 }
 
 .submit {
@@ -119,6 +123,7 @@ section.dark #nav {
 section.dark .drk {
   background-color: #24292d;
   color: #fff;
+  box-shadow: 0 5px 10px #00001a;
 }
 
 .main {
@@ -149,6 +154,7 @@ section.dark .main {
 
 section.dark .todo_con {
   background-color: #24292d;
+  box-shadow: 0 5px 10px #00001a;
 }
 
 .todo_con h3 {
@@ -156,7 +162,7 @@ section.dark .todo_con {
 }
 
 .todof {
-  width: 300px;
+  width: 400px;
   height: 500px;
   background-color: #fff;
   border-radius: 10px;
@@ -167,10 +173,11 @@ section.dark .todo_con {
 section.dark .todof {
   background-color: #24292d;
   color: #fff;
+  box-shadow: 0 5px 10px #00001a;
 }
 
 .inf {
-  width: 300px;
+  width: 400px;
   height: 450px;
   background-color: #fff;
   border-radius: 10px 10px 10px 10px;
@@ -183,10 +190,77 @@ section.dark .inf {
   border: 2px solid white;
 }
 
+#tit {
+  width: 400px;
+  height: 100px;
+  align-items: center;
+  align-content: center;
+  text-align: center;
+}
+
 #titl {
   /*line-height: 30px;*/
   text-align: center;
-  margin: 40px 0px 70px 0px;
+  margin: 40px 0px 0px 0px;
+  text-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+section.dark #titl {
+  /*color: black;*/
+  text-shadow: 0 5px 10px #00001a;
+}
+
+.conf {
+  height: 50px;
+  width: 400px;
+  align-items: center;
+  align-content: center;
+  line-height: 50px;
+  display: flex;
+  flex-direction: row;
+}
+
+.tff {
+  width: 163px;
+  height: 50px;
+  align-items: center;
+  align-content: center;
+  text-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  margin: 5px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+section.dark .tff {
+  text-shadow: 0 5px 10px #00001a;
+}
+
+.con {
+  height: 50px;
+  width: 400px;
+  align-items: center;
+  align-content: center;
+  line-height: 50px;
+  display: flex;
+  flex-direction: row;
+}
+
+.tf {
+  width: 163px;
+  height: 50px;
+  /* background-color: #78b5eb;*/
+  align-items: center;
+  align-content: center;
+  border-radius: 10px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  margin: 5px;
+  text-align: center;
+  font-weight: bolder;
+}
+
+section.dark .tf {
+  box-shadow: 0 5px 10px #00001a;
 }
 
 .ulinfo {
@@ -208,14 +282,23 @@ section.dark .inf {
   margin: 0px 0px 0px 10px;
 }
 
+#det {
+  margin: 20px 0px 0px 10px;
+  text-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+section.dark #det {
+  text-shadow: 0 5px 10px #00001a;
+}
+
 #txt {
-  margin: 50px 0px 0px 10px;
+  margin: 40px 0px 0px 10px;
   overflow: auto;
 }
 
 .navb {
   height: 50px;
-  width: 300px;
+  width: 400px;
   border-radius: 0px 10px 0px 0px;
   border-radius: 0px 0px 10px 10px;
   display: flex;
@@ -224,7 +307,7 @@ section.dark .inf {
 
 .option {
   height: 50px;
-  width: 75px;
+  width: 100px;
   background-color: #fff;
   border: none;
   border-radius: 0px 0px 10px 10px;

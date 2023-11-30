@@ -175,8 +175,9 @@ def profil():
 def archive():
     return render_template('archive.html')
 
-@app.route('/test', methods = ['GET','POST'])
-def test():
+@app.route('/todo', methods = ['GET','POST'])
+@login_required
+def todo():
     h = 5
     m = 56
     s = 40
@@ -187,7 +188,12 @@ def test():
         dailys = dailys.filter(to_do.title.like('%'+ posts_shearch + '%'))
         dailys = dailys.order_by(to_do.date_to_do)
 
-    return render_template('test.html', form=form, dailys=dailys)
+    return render_template('todo.html', form=form, dailys=dailys)
+
+@app.route('/test', methods = ['GET','POST'])
+@login_required
+def test():
+    return render_template('test.html')
 
 if __name__ == "__main__":
     with app.app_context():

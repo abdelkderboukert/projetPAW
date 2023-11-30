@@ -1,12 +1,25 @@
+/*h = document.getElementById("h").textContent;
+m = document.getElementById("m").textContent;
+s = document.getElementById("s").textContent;
+test(() => {
+  let date = new Date(),
+    hour = date.getHours(),
+    min = date.getMinutes(),
+    sec = date.getSeconds();
+  if (h + 1 < hour && m < min) {
+    print("haha");
+  }
+}, 1000);*/
+
 let section = document.querySelector("section"),
-  ds = document.querySelector("#drk");
+  ds = document.querySelector(".drk");
 
 ds.onclick = () => {
   section.classList.toggle("dark");
 };
 
-let button = document.querySelector("#drk");
-let text = document.querySelector("#drk");
+let button = document.querySelector(".container .drk");
+let text = document.querySelector(".container .drk");
 let isOriginalText = true;
 button.addEventListener("click", function () {
   if (isOriginalText) {

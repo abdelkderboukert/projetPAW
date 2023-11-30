@@ -173,7 +173,13 @@ def profil():
 @app.route('/arvhive', methods = ['GET', 'POST'])
 @login_required
 def archive():
-    return render_template('archive.html')
+    form = searchForm()
+    dailys = to_do.query
+    if form.validate_on_submit():
+        posts_shearch = form.search.data
+        dailys = dailys.filter(to_do.title.like('%'+ posts_shearch + '%'))
+        dailys = dailys.order_by(to_do.date_to_do)
+    return render_template('archive.html', form=form, dailys=dailys)
 
 @app.route('/todo', methods = ['GET','POST'])
 @login_required

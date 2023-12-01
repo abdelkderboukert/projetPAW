@@ -40,6 +40,7 @@ section.dark {
 }
 section.dark .main {
   background-color: #323840;
+  box-shadow: 0 5px 10px #00001a;
 }
 .ayaka {
   border-radius: 10px 10px 0px 0px;
@@ -115,6 +116,7 @@ section.dark .ds {
 
 section.dark .info {
   background-color: #24292d;
+  box-shadow: 0 5px 10px #00001a;
 }
 
 .ph {
@@ -125,6 +127,11 @@ section.dark .info {
   top: -60px;
   transform: translate(0%);
 }
+
+section.dark .ph {
+  box-shadow: 0 5px 10px #00001a;
+}
+
 .container {
   height: 100%;
   width: 100%;
@@ -168,6 +175,11 @@ section.dark .container {
   box-shadow: 6px 6px 10px -1px rgba(0, 0, 0, 0.15),
     -6px -6px 10px -1px rgba(0, 0, 0, 0.15);
 }
+
+section.dark .outer {
+  box-shadow: 0 5px 10px #00001a;
+}
+
 .inner {
   height: 140px;
   width: 140px;

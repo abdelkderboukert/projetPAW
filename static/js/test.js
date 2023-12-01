@@ -1,12 +1,12 @@
 let section = document.querySelector("section"),
-  ds = document.querySelector("#drk");
+  ds = document.querySelector(".ds");
 
 ds.onclick = () => {
   section.classList.toggle("dark");
 };
 
-let button = document.querySelector("#drk");
-let text = document.querySelector("#drk");
+let button = document.querySelector(".main .ds");
+let text = document.querySelector(" .main .ds");
 let isOriginalText = true;
 button.addEventListener("click", function () {
   if (isOriginalText) {
@@ -16,16 +16,17 @@ button.addEventListener("click", function () {
   }
   isOriginalText = !isOriginalText;
 });
-/*0770396410 aymn familt 3mr*/
-let todo = document.querySelectorAll(".container .todo .main .todo_con");
-let title1 = document.querySelector(".container .todof .inf h3");
-let inf1 = document.querySelector("#inf1");
-let inf2 = document.querySelector("#inf2");
-let inf3 = document.querySelector("#inf3");
-console.log(todo);
-for (const el of todo) {
-  el.addEventListener("click", function () {
-    const title = el.querySelector("h3");
-    title1.textContent = title.textContent;
-  });
-}
+
+let number = document.getElementById("number");
+let conter = 0;
+let nf = number.textContent;
+bf = 472 * (1 - nf / 100);
+setInterval(() => {
+  if (conter == nf) {
+    clearInterval();
+  } else {
+    conter += 1;
+    number.innerHTML = conter + "%";
+  }
+}, 35);
+document.documentElement.style.setProperty("--numm", bf);

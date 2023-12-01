@@ -167,8 +167,15 @@ def add_daily():
 @app.route('/profil', methods = ['GET','POST'])#done
 @login_required
 def profil():
-    num = 60
-    return render_template('profil.html', num = num)
+    i = 0
+    j = 0
+    dailys = User.query.all()#don't forget to make it to_do.query when u finished database problems
+    for daily in dailys:
+        if daily.name == 'admin1':# this one tow
+            i = i + 1
+        j = j + 1
+    num = round(100 / (i * j))
+    return render_template('profil.html', num = num, i = i, j = j)
 
 @app.route('/arvhive', methods = ['GET', 'POST'])
 @login_required
@@ -184,9 +191,6 @@ def archive():
 @app.route('/todo', methods = ['GET','POST'])
 @login_required
 def todo():
-    h = 5
-    m = 56
-    s = 40
     form = searchForm()
     dailys = to_do.query
     if form.validate_on_submit():
@@ -199,7 +203,15 @@ def todo():
 @app.route('/test', methods = ['GET','POST'])
 @login_required
 def test():
-    return render_template('test.html')
+    i = 0
+    j = 0
+    dailys = User.query.all()
+    for daily in dailys:
+        if daily.name == 'admin1':
+            i = i + 1
+        j = j + 1
+    num = round(100 / (i * j))
+    return render_template('test.html', num = num)
 
 if __name__ == "__main__":
     with app.app_context():

@@ -1,14 +1,15 @@
-from flask import Flask, render_template, redirect, url_for, flash
+from flask import Flask, render_template, redirect, url_for, flash, request
 from flask_sqlalchemy import SQLAlchemy
 from waitress import serve
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, ValidationError
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, ValidationError, IntegerField
 from wtforms.validators import DataRequired, equal_to, Length
 from flask_bcrypt import Bcrypt  # Import Bcrypt
 from flask_login import UserMixin, login_user, login_manager, logout_user, login_required, current_user, login_remembered,LoginManager
 from werkzeug.security import generate_password_hash, check_password_hash
 import datetime
 from wtforms.widgets import TextArea
+from flask_apscheduler import APScheduler
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '5511467d654732b6d9875da2691f78fd'
@@ -19,11 +20,17 @@ bcrypt = Bcrypt(app)  # Initialize Bcrypt
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
+scheduler = APScheduler()
 
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+def valid(id, k):
+    todo = to_do.query.get_or_404(id)
+    todo.title = k
+    db.session.commit()
+    pass
 #the module
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -49,7 +56,7 @@ class to_do(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(50), nullable=False)
     text = db.Column(db.Text)
-    id_user = db.Column(db.String(5000000000), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     date_to_do = db.Column(db.DateTime, nullable=False)
     #hour_to_do = db.Column(db.String(2), nullable=False)
     #min_to_do = db.Column(db.String(2), nullable=False)
@@ -76,6 +83,7 @@ class todoForm(FlaskForm):
     date_to_do = StringField("date_to_do", validators=[DataRequired()])
     hour_to_do = StringField("hour_to_do", validators=[DataRequired()])
     min_to_do = StringField("min_to_do", validators=[DataRequired()])
+    checkbox = BooleanField("check if you do it")
     submit = SubmitField('create')
 
 class searchForm(FlaskForm):
@@ -116,7 +124,7 @@ def login():
         
     else :
       return render_template('login.html', form = form)
-
+    
 @app.route('/add_user', methods = ['POST' , 'GET'])#done
 def add_user():
     form = userForm()
@@ -182,11 +190,15 @@ def profil():
 def archive():
     form = searchForm()
     dailys = to_do.query
+    form1 = todoForm()
     if form.validate_on_submit():
         posts_shearch = form.search.data
         dailys = dailys.filter(to_do.title.like('%'+ posts_shearch + '%'))
         dailys = dailys.order_by(to_do.date_to_do)
-    return render_template('archive.html', form=form, dailys=dailys)
+    
+    if request.method == 'POST':
+        checkbox_value = request.form.get('checkbox')
+    return render_template('archive.html', form=form, dailys=dailys, form1=form1)
 
 @app.route('/todo', methods = ['GET','POST'])
 @login_required
@@ -199,22 +211,15 @@ def todo():
         dailys = dailys.order_by(to_do.date_to_do)
 
     return render_template('todo.html', form=form, dailys=dailys)
-
 @app.route('/test', methods = ['GET','POST'])
 @login_required
 def test():
-    i = 0
-    j = 0
-    dailys = User.query.all()
-    for daily in dailys:
-        if daily.name == 'admin1':
-            i = i + 1
-        j = j + 1
-    num = round(100 / (i * j))
-    return render_template('test.html', num = num)
+    return render_template('test.html')
 
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
-    
+
+    scheduler.add_job(id='valid', func=valid, trigger='interval', args=[1, 2], minutes=10)
+    scheduler.start()
     serve(app, host='0.0.0.0', port=8080)

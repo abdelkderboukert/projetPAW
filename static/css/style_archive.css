@@ -150,6 +150,9 @@ section.dark .main {
   margin: 10px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   line-height: 75px;
+  display: flex;
+  flex-direction: row;
+  position: relative;
 }
 
 section.dark .todo_con {
@@ -159,6 +162,25 @@ section.dark .todo_con {
 
 .todo_con h3 {
   margin: 0pc 0px 0px 10px;
+}
+
+.conck {
+  width: 20px;
+  height: 75px;
+  /* margin: 0px 0px 0px 50px;*/
+  position: absolute;
+  top: 5px;
+  left: 600px;
+}
+
+.ckbox {
+  width: 20px;
+  height: 20px;
+  accent-color: #8528d6;
+}
+
+.ckbox:checked {
+  accent-color: black;
 }
 
 .todof {

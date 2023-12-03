@@ -23,37 +23,52 @@
             <button class="drk">dark mode</button>
           </div>
           <div class="main">
-            {% for daily in dailys %} {% if daily.date_to_do >= date %}
+            {% for daily in dailys %} {% if daily.date_to_do >= date %} {% if
+            id_user == current_user.id %}
             <div class="todo_con">
               <h3>{{ daily.title }}</h3>
+              <div class="conck">
+                {{ form1.checkbox(class="ckbox") }}{% if request.method ==
+                'POST' %} {{ valid(id, request.form.get('checkbox')) }} {% endif
+                %}
+              </div>
             </div>
-            {% endif %} {% endfor %}
+            {% endif %} {% endif %} {% endfor %}
             <div class="todo_con">
               <h3></h3>
+              <div class="conck">{{ form1.checkbox(class="ckbox")}}</div>
             </div>
             <div class="todo_con">
               <h3>db</h3>
+              <div class="conck">{{ form1.checkbox(class="ckbox")}}</div>
             </div>
             <div class="todo_con">
               <h3>eh</h3>
+              <div class="conck">{{ form1.checkbox(class="ckbox")}}</div>
             </div>
             <div class="todo_con">
               <h3>hbsg</h3>
+              <div class="conck">{{ form1.checkbox(class="ckbox")}}</div>
             </div>
             <div class="todo_con">
               <h3>dqfhqd</h3>
+              <div class="conck">{{ form1.checkbox(class="ckbox")}}</div>
             </div>
             <div class="todo_con">
               <h3>dhgbsgdh</h3>
+              <div class="conck">{{ form1.checkbox(class="ckbox")}}</div>
             </div>
             <div class="todo_con">
               <h3>rzgegh</h3>
+              <div class="conck">{{ form1.checkbox(class="ckbox")}}</div>
             </div>
             <div class="todo_con">
               <h3>go to the sopper market and bay some kake</h3>
+              <div class="conck">{{ form1.checkbox(class="ckbox")}}</div>
             </div>
             <div class="todo_con">
               <h3>clean my gren car</h3>
+              <div class="conck">{{ form1.checkbox(class="ckbox")}}</div>
             </div>
           </div>
         </div>

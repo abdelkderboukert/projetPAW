@@ -1,5 +1,6 @@
 from flask import Flask, render_template, redirect, url_for, flash, request
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import Column, Integer, String
 from waitress import serve
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, ValidationError, IntegerField
@@ -56,13 +57,14 @@ class to_do(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(50), nullable=False)
     text = db.Column(db.Text)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    #user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     date_to_do = db.Column(db.DateTime, nullable=False)
     #hour_to_do = db.Column(db.String(2), nullable=False)
     #min_to_do = db.Column(db.String(2), nullable=False)
 
     def __repr__(self):
         return '<name %r>' % self.name
+
 
 #the forms
 class userForm(FlaskForm):
@@ -89,7 +91,6 @@ class todoForm(FlaskForm):
 class searchForm(FlaskForm):
     search = StringField("search", validators=[DataRequired()])
     submit = SubmitField('search')
-
 
 @app.route('/')
 @login_required
@@ -159,18 +160,25 @@ def log_out():
 @login_required
 def add_daily():
     form = todoForm()
+
     if form.validate_on_submit():
-        todo = to_do(title=form.title.data, text=form.text.data, date_to_do=form.date_to_do.data)
-        form.title.data = ''
-        form.text.data = ''
-        form.date_to_do.data = ''
-
-        db.session.add(todo)
+        new_task = to_do(title=form.title.data)
+        db.session.add(new_task)
         db.session.commit()
-        flash("submitted successfully")
+        flash('Task added successfully!', 'success')
+        return redirect(url_for('add_daily'))
 
-    return render_template('add_daily.html', form=form)
+    tasks = to_do.query.all()
+    return render_template('add_daily.html', form=form, tasks=tasks)
 
+@app.route('/delete/<int:task_id>')
+@login_required
+def delete_task(task_id):
+    task = to_do.query.get_or_404(task_id)
+    db.session.delete(task)
+    db.session.commit()
+    flash('Task deleted successfully!', 'success')
+    return redirect(url_for('add_daily'))
 
 @app.route('/profil', methods = ['GET','POST'])#done
 @login_required
@@ -198,7 +206,7 @@ def archive():
     
     if request.method == 'POST':
         checkbox_value = request.form.get('checkbox')
-    return render_template('archive.html', form=form, dailys=dailys, form1=form1)
+    return render_template('todo.html', form=form, dailys=dailys, form1=form1)
 
 @app.route('/todo', methods = ['GET','POST'])
 @login_required

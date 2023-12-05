@@ -22,7 +22,7 @@ block body %}
 </form>
 
 <ul class="list-group">
-  {% for task in tasks %}
+  {% for task in tasks %} {% if task.id_user == current_user %}
   <li class="list-group-item">
     {{ task.title }}
     <a
@@ -31,6 +31,6 @@ block body %}
       >Delete</a
     >
   </li>
-  {% endfor %}
+  {% endif %} {% endfor %}
 </ul>
 {% endblock %}

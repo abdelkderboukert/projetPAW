@@ -23,16 +23,15 @@
             <button class="drk">dark mode</button>
           </div>
           <div class="main">
-            {% for daily in dailys %} {% if daily.date_to_do >= date %}
-            {% if user_id == current_user.id %}
+            {% for daily in dailys %} {% if daily.date_to_do >= date %} {% if
+            id_user == current_user.id %}
             <div class="todo_con">
               <h3>{{ daily.title }}</h3>
               <div class="conck">{{ form1.checkbox(class="ckbox")}}</div>
-              {% if request.method == 'POST' %}
-              {{ valid(id, request.form.get('checkbox'))}}
-              {% endif %}
+              {% if request.method == 'POST' %} {{ valid(id,
+              request.form.get('checkbox'))}} {% endif %}
             </div>
-            {% endif %} {% endif %} {% endfor %}            
+            {% endif %} {% endif %} {% endfor %}
             <div class="todo_con">
               <h3></h3>
               <div class="conck">{{ form1.checkbox(class="ckbox")}}</div>

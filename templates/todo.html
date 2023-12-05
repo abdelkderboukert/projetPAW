@@ -26,34 +26,84 @@
             {% for daily in dailys %} {% if daily.date_to_do >= date %}
             <div class="todo_con">
               <h3>{{ daily.title }}</h3>
+              <a
+                href="{{ url_for('delete_task', task_id=task.id) }}"
+                class="btn btn-danger btn-sm float-right"
+                >Delete</a
+              >
             </div>
             {% endif %} {% endfor %}
             <div class="todo_con">
               <h3></h3>
+              <a
+                href="{{ url_for('delete_task', task_id=dailys.id) }}"
+                class="btn btn-danger btn-sm float-right"
+                >Delete</a
+              >
             </div>
             <div class="todo_con">
               <h3>db</h3>
+              <a
+                href="{{ url_for('delete_task', task_id=task.id) }}"
+                class="btn btn-danger btn-sm float-right"
+                >Delete</a
+              >
             </div>
             <div class="todo_con">
               <h3>eh</h3>
+              <a
+                href="{{ url_for('delete_task', task_id=task.id) }}"
+                class="btn btn-danger btn-sm float-right"
+                >Delete</a
+              >
             </div>
             <div class="todo_con">
               <h3>hbsg</h3>
+              <a
+                href="{{ url_for('delete_task', task_id=task.id) }}"
+                class="btn btn-danger btn-sm float-right"
+                >Delete</a
+              >
             </div>
             <div class="todo_con">
               <h3>dqfhqd</h3>
+              <a
+                href="{{ url_for('delete_task', task_id=task.id) }}"
+                class="btn btn-danger btn-sm float-right"
+                >Delete</a
+              >
             </div>
             <div class="todo_con">
               <h3>dhgbsgdh</h3>
+              <a
+                href="{{ url_for('delete_task', task_id=task.id) }}"
+                class="btn btn-danger btn-sm float-right"
+                >Delete</a
+              >
             </div>
             <div class="todo_con">
               <h3>rzgegh</h3>
+              <a
+                href="{{ url_for('delete_task', task_id=task.id) }}"
+                class="btn btn-danger btn-sm float-right"
+                >Delete</a
+              >
             </div>
             <div class="todo_con">
               <h3>go to the sopper market and bay some kake</h3>
+              <a
+                href="{{ url_for('delete_task', task_id=task.id) }}"
+                class="btn btn-danger btn-sm float-right"
+                >Delete</a
+              >
             </div>
             <div class="todo_con">
               <h3>clean my gren car</h3>
+              <a
+                href="{{ url_for('delete_task', task_id=task.id) }}"
+                class="btn btn-danger btn-sm float-right"
+                >Delete</a
+              >
             </div>
           </div>
         </div>

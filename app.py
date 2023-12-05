@@ -57,10 +57,11 @@ class to_do(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(50), nullable=False)
     text = db.Column(db.Text)
-    #user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    id_user = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     date_to_do = db.Column(db.DateTime, nullable=False)
-    #hour_to_do = db.Column(db.String(2), nullable=False)
-    #min_to_do = db.Column(db.String(2), nullable=False)
+    hour_to_do = db.Column(db.String(2), nullable=False)
+    min_to_do = db.Column(db.String(2), nullable=False)
+    val = db.Column(db.String(10))
 
     def __repr__(self):
         return '<name %r>' % self.name
@@ -178,7 +179,7 @@ def delete_task(task_id):
     db.session.delete(task)
     db.session.commit()
     flash('Task deleted successfully!', 'success')
-    return redirect(url_for('add_daily'))
+    return redirect(url_for('todo'), url_for('add_daily'))
 
 @app.route('/profil', methods = ['GET','POST'])#done
 @login_required
@@ -203,10 +204,8 @@ def archive():
         posts_shearch = form.search.data
         dailys = dailys.filter(to_do.title.like('%'+ posts_shearch + '%'))
         dailys = dailys.order_by(to_do.date_to_do)
-    
-    if request.method == 'POST':
-        checkbox_value = request.form.get('checkbox')
-    return render_template('todo.html', form=form, dailys=dailys, form1=form1)
+
+    return render_template('archive.html', form=form, dailys=dailys, form1=form1)
 
 @app.route('/todo', methods = ['GET','POST'])
 @login_required
@@ -219,6 +218,7 @@ def todo():
         dailys = dailys.order_by(to_do.date_to_do)
 
     return render_template('todo.html', form=form, dailys=dailys)
+
 @app.route('/test', methods = ['GET','POST'])
 @login_required
 def test():

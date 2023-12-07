@@ -15,7 +15,7 @@
           <div class="cherche">
             <div class="#">
               {{ form.hidden_tag() }}{{ form.search(id="nav",
-              placeholder="search") }}
+              placeholder="search", autofocus=true) }}
             </div>
             <button id="bt2">
               {{ form.hidden_tag() }}{{ form.submit(id="bt1") }}

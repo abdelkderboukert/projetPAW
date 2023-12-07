@@ -1,5 +1,9 @@
 {% extends 'base.html' %} {% block title %}Flask ToDo List{% endblock %} {%
-block body %}
+block css %}
+<link
+  href="{{ url_for('static', filename='css/style_add_daily.css')}}"
+  rel="stylesheet"
+/>{% endblock %} {% block body %}
 <h1 class="mt-5 mb-4">ToDo List</h1>
 
 {% with messages = get_flashed_messages() %} {% if messages %}
@@ -7,18 +11,30 @@ block body %}
   {% for message in messages %} {{ message }} {% endfor %}
 </div>
 {% endif %} {% endwith %}
-
-<form method="post" class="mb-3">
+<form method="POST">
   {{ form.hidden_tag() }}
-  <div class="form-row">
-    <div class="col-md-8">
-      {{ form.title(class="form-control", placeholder="Enter your task",
-      autofocus=true) }}
-    </div>
-    <div class="col-md-4">
-      {{ form.submit(class="btn btn-primary btn-block") }}
-    </div>
+  <div class="add">
+    <h3>title</h3>
+    {{ form.title(class="btnadd",placeholder="Enter your task", autofocus=true)
+    }}
   </div>
+  <div class="add">
+    <h3>date</h3>
+    {{ form.date_to_do(class="btnadd") }}
+  </div>
+  <div class="add">
+    <h3>hour</h3>
+    {{ form.hour_to_do(class="btnadd") }}
+  </div>
+  <div class="add">
+    <h3>min</h3>
+    {{ form.min_to_do(class="btnadd") }}
+  </div>
+  <div class="addtxt">
+    <h3>title</h3>
+    {{ form.text(class="btntxt") }}
+  </div>
+  {{ form.submit(class="btn") }}
 </form>
 
 <ul class="list-group">
@@ -33,4 +49,13 @@ block body %}
   </li>
   {% endif %} {% endfor %}
 </ul>
+<script src="{{ url_for('static', filename='js/add_daily.js')}}"></script>
+<script
+  type="module"
+  src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+></script>
+<script
+  nomodule
+  src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+></script>
 {% endblock %}

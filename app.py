@@ -8,14 +8,16 @@ from wtforms.validators import DataRequired, equal_to, Length
 from flask_bcrypt import Bcrypt  # Import Bcrypt
 from flask_login import UserMixin, login_user, login_manager, logout_user, login_required, current_user, login_remembered,LoginManager
 from werkzeug.security import generate_password_hash, check_password_hash
-import datetime
+from datetime import datetime
 from wtforms.widgets import TextArea
 from flask_apscheduler import APScheduler
+from flask_migrate import Migrate
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '5511467d654732b6d9875da2691f78fd'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///user.db'
 db = SQLAlchemy(app)
+#migrate = Migrate(app, db)
 bcrypt = Bcrypt(app)  # Initialize Bcrypt
 # flask_login stuff
 login_manager = LoginManager()
@@ -59,9 +61,10 @@ class to_do(db.Model):
     text = db.Column(db.Text)
     id_user = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     date_to_do = db.Column(db.DateTime, nullable=False)
-    hour_to_do = db.Column(db.String(2), nullable=False)
-    min_to_do = db.Column(db.String(2), nullable=False)
+    hour_to_do = db.Column(db.String(2), nullable=True, default=8)
+    min_to_do = db.Column(db.String(2), nullable=True, default=00)
     val = db.Column(db.String(10))
+    datenow = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __repr__(self):
         return '<name %r>' % self.name
@@ -161,9 +164,13 @@ def log_out():
 @login_required
 def add_daily():
     form = todoForm()
-
     if form.validate_on_submit():
-        new_task = to_do(title=form.title.data)
+        if form.hour_to_do == '':
+            form.hour_to_do= '08:00'
+        if form.min_to_do == '':
+            form.min_to_do= '00'
+
+        new_task = to_do(title=form.title.data, date_to_do=form.date_to_do.data, hour_to_do=form.hour_to_do.data, min_to_do=form.min_to_do.data, text=form.text.data,id_user= current_user.id , val=0)
         db.session.add(new_task)
         db.session.commit()
         flash('Task added successfully!', 'success')

@@ -75,13 +75,11 @@
         <h3>your daily for today</h3>
       </div>
       <div class="daily">
-        {% for dailys in daily %}
-        <!--{% if dailys.date_to_do == date %}-->
+        {% for dailys in daily %} {% if dailys.date_to_do.date() == date %}
         <div class="todo_con">
-          <h3>{{ dailys.name }}</h3>
+          <h3>{{ dailys.title }}</h3>
         </div>
-        <!--{% endif %}-->
-        {% endfor %}
+        {% endif %} {% endfor %}
       </div>
     </div>
   </div>

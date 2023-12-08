@@ -23,50 +23,41 @@
             <button class="drk">dark mode</button>
           </div>
           <div class="main">
-            {% for daily in dailys %} {% if daily.date_to_do >= date %} {% if
-            id_user == current_user.id %}
+            {% for daily in dailys %} {% if date > daily.date_to_do.date() %}
             <div class="todo_con">
               <h3>{{ daily.title }}</h3>
-              <div class="conck">{{ form1.checkbox(class="ckbox")}}</div>
-              {% if request.method == 'POST' %} {{ valid(id,
-              request.form.get('checkbox'))}} {% endif %}
+              <p class="hid" id="dat">{{ daily.date_to_do.date() }}</p>
+              <p class="hid" id="txt">{{ daily.text }}</p>
+              <p class="hid" id="hour">{{ daily.hour_to_do }}</p>
+              <p class="hid" id="datd">{{ daily.datenow.date() }}</p>
             </div>
-            {% endif %} {% endif %} {% endfor %}
+            {% endif %} {% endfor %}
             <div class="todo_con">
               <h3></h3>
-              <div class="conck">{{ form1.checkbox(class="ckbox")}}</div>
             </div>
             <div class="todo_con">
               <h3>db</h3>
-              <div class="conck">{{ form1.checkbox(class="ckbox")}}</div>
             </div>
             <div class="todo_con">
               <h3>eh</h3>
-              <div class="conck">{{ form1.checkbox(class="ckbox")}}</div>
             </div>
             <div class="todo_con">
               <h3>hbsg</h3>
-              <div class="conck">{{ form1.checkbox(class="ckbox")}}</div>
             </div>
             <div class="todo_con">
               <h3>dqfhqd</h3>
-              <div class="conck">{{ form1.checkbox(class="ckbox")}}</div>
             </div>
             <div class="todo_con">
               <h3>dhgbsgdh</h3>
-              <div class="conck">{{ form1.checkbox(class="ckbox")}}</div>
             </div>
             <div class="todo_con">
               <h3>rzgegh</h3>
-              <div class="conck">{{ form1.checkbox(class="ckbox")}}</div>
             </div>
             <div class="todo_con">
               <h3>go to the sopper market and bay some kake</h3>
-              <div class="conck">{{ form1.checkbox(class="ckbox")}}</div>
             </div>
             <div class="todo_con">
               <h3>clean my gren car</h3>
-              <div class="conck">{{ form1.checkbox(class="ckbox")}}</div>
             </div>
           </div>
         </div>
@@ -81,15 +72,12 @@
               <div class="tff" id="f3">date creat</div>
             </div>
             <div class="con">
-              <div class="tf" id="1">10-10-2023</div>
-              <div class="tf" id="2">9:30-12:00</div>
-              <div class="tf" id="3">15-9-2023</div>
+              <div class="tf" id="m1"></div>
+              <div class="tf" id="m2"></div>
+              <div class="tf" id="m3"></div>
             </div>
             <h2 id="det">details:</h2>
-            <p id="txt">
-              heth etheh egeqfg ehgqehg eghqfg qeghqfb hfb dhbdf hdfh dfghqdhf
-              dfbdhf efdfh egqfgqf
-            </p>
+            <p id="txt1"></p>
           </div>
           <div class="navb">
             <a href="{{ url_for('add_daily' )}}"

@@ -313,7 +313,7 @@ section.dark #det {
   text-shadow: 0 5px 10px #00001a;
 }
 
-#txt {
+#txt1 {
   margin: 40px 0px 0px 10px;
   overflow: auto;
 }
@@ -338,4 +338,7 @@ section.dark #det {
 section.dark .option {
   background-color: #24292d;
   color: #fff;
+}
+.hid {
+  display: none;
 }

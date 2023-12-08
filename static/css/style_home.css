@@ -191,6 +191,12 @@ section.dark .title_todo{
   margin: 10px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
+.todo_con h3 {
+  margin: 0pc 0px 0px 10px;
+}
+.navbar h3 {
+  margin: 0pc 0px 0px 10px;
+}
 section.dark .todo_con{
   background-color: #24292D;
   color: #fff;

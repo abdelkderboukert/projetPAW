@@ -19,13 +19,22 @@ button.addEventListener("click", function () {
 /*0770396410 aymn familt 3mr*/
 let todo = document.querySelectorAll(".container .todo .main .todo_con");
 let title1 = document.querySelector(".container .todof .inf h3");
-let inf1 = document.querySelector("#inf1");
-let inf2 = document.querySelector("#inf2");
-let inf3 = document.querySelector("#inf3");
+let inf1 = document.getElementById("m1");
+let inf2 = document.getElementById("m2");
+let inf3 = document.getElementById("m3");
+let txt1 = document.getElementById("txt1");
 console.log(todo);
 for (const el of todo) {
   el.addEventListener("click", function () {
     const title = el.querySelector("h3");
+    const txt = el.querySelector("#txt");
+    const dat = el.querySelector("#dat");
+    const hour = el.querySelector("#hour");
+    const datd = el.querySelector("#datd");
     title1.textContent = title.textContent;
+    inf1.textContent = dat.textContent;
+    inf2.textContent = hour.textContent;
+    inf3.textContent = datd.textContent;
+    txt1.textContent = txt.textContent;
   });
 }

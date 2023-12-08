@@ -4,38 +4,74 @@ block css %}
   href="{{ url_for('static', filename='css/style_add_daily.css')}}"
   rel="stylesheet"
 />{% endblock %} {% block body %}
-<h1 class="mt-5 mb-4">ToDo List</h1>
-
-{% with messages = get_flashed_messages() %} {% if messages %}
-<div class="alert alert-info">
-  {% for message in messages %} {{ message }} {% endfor %}
-</div>
-{% endif %} {% endwith %}
-<form method="POST">
-  {{ form.hidden_tag() }}
-  <div class="add">
-    <h3>title</h3>
-    {{ form.title(class="btnadd",placeholder="Enter your task", autofocus=true)
-    }}
+<div class="alert alert-info"></div>
+<section>
+  <div class="container">
+    <h1 id="titlep">your new to do</h1>
+    <form method="POST">
+      {{ form.hidden_tag() }}
+      <div class="add">
+        {{ form.title(class="btnadd",placeholder=" Title", autofocus=true) }}
+      </div>
+      <div class="add" id="rep">
+        <div class="add1">
+          <!--<h3>date</h3>-->
+          <input
+            type="text"
+            name="date_to_do"
+            class="btnadd"
+            placeholder="YYYY-MM-DD"
+            value="{{ form.date_to_do.data.strftime('%Y-%m-%d') }}"
+          />
+        </div>
+        <div class="add1">
+          <!--<h3>nmner replays</h3>-->
+          {{ form.rep(class="btnadd",placeholder=" number replays",
+          autofocus=true) }}
+        </div>
+      </div>
+      <div class="add" id="time">
+        <div class="add1">
+          <!--<h3>hour</h3>-->
+          {{ form.hour_to_do(class="btnadd",placeholder=" hour", autofocus=true)
+          }}
+        </div>
+        <div class="add1">
+          <!--<h3>min</h3>-->
+          {{ form.min_to_do(class="btnadd",placeholder=" minute",
+          autofocus=true) }}
+        </div>
+      </div>
+      <div class="addtxt">
+        <!--<h3>description</h3>-->
+        {{ form.text(class="btntxt",placeholder=" description", autofocus=true)
+        }}
+      </div>
+      {{ form.submit(class="btn") }}
+    </form>
+    <div class="navb">
+      <button class="option" id="drk">dark mode</button>
+      <button class="option">
+        <a href="{{ url_for('archive' )}}"
+          ><h2><ion-icon name="albums-outline"></ion-icon></h2
+        ></a>
+        <!--archive-->
+      </button>
+      <button class="option">
+        <a href="{{ url_for('todo' )}}"
+          ><h2><ion-icon name="list-outline"></ion-icon></h2
+        ></a>
+        <!--all the to do-->
+      </button>
+      <button class="option">
+        <a href="{{ url_for('home' )}}"
+          ><h2><ion-icon name="home-outline"></ion-icon></h2
+        ></a>
+        <!--home-->
+      </button>
+    </div>
   </div>
-  <div class="add">
-    <h3>date</h3>
-    {{ form.date_to_do(class="btnadd") }}
-  </div>
-  <div class="add">
-    <h3>hour</h3>
-    {{ form.hour_to_do(class="btnadd") }}
-  </div>
-  <div class="add">
-    <h3>min</h3>
-    {{ form.min_to_do(class="btnadd") }}
-  </div>
-  <div class="addtxt">
-    <h3>title</h3>
-    {{ form.text(class="btntxt") }}
-  </div>
-  {{ form.submit(class="btn") }}
-</form>
+</section>
 
 <ul class="list-group">
   {% for task in tasks %} {% if task.id_user == current_user %}

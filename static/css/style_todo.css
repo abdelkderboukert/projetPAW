@@ -69,7 +69,7 @@ section.dark .todo {
   height: 40px;
   border-radius: 0px 20px 20px 0px;
   background-color: #f0f8ff;
-  /*border: 2px solid black;*/
+  border: 2px solid black;
   border: none;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
@@ -150,6 +150,7 @@ section.dark .main {
   margin: 10px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   line-height: 75px;
+  flex-direction: column;
 }
 
 section.dark .todo_con {
@@ -291,7 +292,7 @@ section.dark #det {
   text-shadow: 0 5px 10px #00001a;
 }
 
-#txt {
+#txt1 {
   margin: 40px 0px 0px 10px;
   overflow: auto;
 }
@@ -316,4 +317,14 @@ section.dark #det {
 section.dark .option {
   background-color: #24292d;
   color: #fff;
+}
+
+.hid {
+  display: none;
+}
+
+.dlt1 {
+  height: 100px;
+  width: 70px;
+  background-color: #004d74;
 }

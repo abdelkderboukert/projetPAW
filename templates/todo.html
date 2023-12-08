@@ -13,7 +13,7 @@
       <div class="container">
         <div class="todo">
           <div class="cherche">
-            <div class="#">
+            <div id="#">
               {{ form.hidden_tag() }}{{ form.search(id="nav",
               placeholder="search", autofocus=true) }}
             </div>
@@ -23,49 +23,28 @@
             <button class="drk">dark mode</button>
           </div>
           <div class="main">
-            {% for daily in dailys %} {% if daily.date_to_do >= date %}
+            {% for daily in dailys %} {% if daily.date_to_do.date() > date %}
             <div class="todo_con">
               <h3>{{ daily.title }}</h3>
-              <a
-                href="{{ url_for('delete_task', task_id=daily.id) }}"
-                class="btn btn-danger btn-sm float-right"
-                >Delete</a
-              >
+              <p class="hid" id="dat">{{ daily.date_to_do.date() }}</p>
+              <p class="hid" id="txt">{{ daily.text }}</p>
+              <p class="hid" id="hour">{{ daily.hour_to_do }}</p>
+              <p class="hid" id="datd">{{ daily.datenow.date() }}</p>
+              <button id="dlt">
+                <a
+                  href="{{ url_for('delete_task', task_id=daily.id) }}"
+                  class="dlt1"
+                  >Delete</a
+                >
+              </button>
             </div>
             {% endif %} {% endfor %}
-            <div class="todo_con">
-              <h3></h3>
-            </div>
-            <div class="todo_con">
-              <h3>db</h3>
-            </div>
-            <div class="todo_con">
-              <h3>eh</h3>
-            </div>
-            <div class="todo_con">
-              <h3>hbsg</h3>
-            </div>
-            <div class="todo_con">
-              <h3>dqfhqd</h3>
-            </div>
-            <div class="todo_con">
-              <h3>dhgbsgdh</h3>
-            </div>
-            <div class="todo_con">
-              <h3>rzgegh</h3>
-            </div>
-            <div class="todo_con">
-              <h3>go to the sopper market and bay some kake</h3>
-            </div>
-            <div class="todo_con">
-              <h3>clean my gren car</h3>
-            </div>
           </div>
         </div>
         <div class="todof">
           <div class="inf">
             <div id="tit">
-              <h3 id="titl">go to the super market</h3>
+              <h3 id="titl"></h3>
             </div>
             <div class="conf">
               <div class="tff" id="f1">date do</div>
@@ -73,15 +52,12 @@
               <div class="tff" id="f3">date creat</div>
             </div>
             <div class="con">
-              <div class="tf" id="1">10-10-2023</div>
-              <div class="tf" id="2">9:30-12:00</div>
-              <div class="tf" id="3">15-9-2023</div>
+              <div class="tf" id="m1"></div>
+              <div class="tf" id="m2"></div>
+              <div class="tf" id="m3"></div>
             </div>
             <h2 id="det">details:</h2>
-            <p id="txt">
-              heth etheh egeqfg ehgqehg eghqfg qeghqfb hfb dhbdf hdfh dfghqdhf
-              dfbdhf efdfh egqfgqf
-            </p>
+            <p id="txt1"></p>
           </div>
           <div class="navb">
             <a href="{{ url_for('add_daily' )}}"

@@ -13,23 +13,36 @@
       <div class="container">
         <div class="todo">
           <div class="cherche">
-            <div id="#">
-              {{ form.hidden_tag() }}{{ form.search(id="nav",
-              placeholder="search", autofocus=true) }}
-            </div>
-            <button id="bt2">
-              {{ form.hidden_tag() }}{{ form.submit(id="bt1") }}
-            </button>
+            <form method="get" action="/search">
+              <input
+                type="text"
+                id="nav"
+                name="query"
+                placeholder="Search..."
+                required
+              />
+              <button type="submit" id="bt1">Search</button>
+            </form>
             <button class="drk">dark mode</button>
           </div>
           <div class="main">
+            <ul>
+              <ul>
+                {% for result in results %} {% if result.date_to_do.date() >
+                date %}
+                <div class="todo_con">
+                  <h3>{{ result.title }}</h3>
+                  <p class="hid" id="dat">{{ result.date_to_do.date() }}</p>
+                  <p class="hid" id="txt">{{ result.text }}</p>
+                  <p class="hid" id="hour">{{ result.hour_to_do }}</p>
+                  <p class="hid" id="datd">{{ result.datenow.date() }}</p>
+                </div>
+                {% endif %} {% endfor %}
+              </ul>
+            </ul>
             {% for daily in dailys %} {% if daily.date_to_do.date() > date %}
             <div class="todo_con">
               <h3>{{ daily.title }}</h3>
-              <p class="hid" id="dat">{{ daily.date_to_do.date() }}</p>
-              <p class="hid" id="txt">{{ daily.text }}</p>
-              <p class="hid" id="hour">{{ daily.hour_to_do }}</p>
-              <p class="hid" id="datd">{{ daily.datenow.date() }}</p>
               <button id="dlt">
                 <a
                   href="{{ url_for('delete_task', task_id=daily.id) }}"
@@ -37,6 +50,10 @@
                   >Delete</a
                 >
               </button>
+              <p class="hid" id="dat">{{ daily.date_to_do.date() }}</p>
+              <p class="hid" id="txt">{{ daily.text }}</p>
+              <p class="hid" id="hour">{{ daily.hour_to_do }}</p>
+              <p class="hid" id="datd">{{ daily.datenow.date() }}</p>
             </div>
             {% endif %} {% endfor %}
           </div>

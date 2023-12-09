@@ -13,16 +13,35 @@
       <div class="container">
         <div class="todo">
           <div class="cherche">
-            <div class="#">
-              {{ form.hidden_tag() }}{{ form.search(id="nav",
-              placeholder="search", autofocus=true) }}
-            </div>
-            <button id="bt2">
-              {{ form.hidden_tag() }}{{ form.submit(id="bt1") }}
-            </button>
+            <!--hvvgggggggggwvbvwvbwvbwxb wxv wcv wcv cwv cv xv xv -->
+            <form method="get" action="/search">
+              <input
+                type="text"
+                id="nav"
+                name="query"
+                placeholder="Search..."
+                required
+              />
+              <button type="submit" id="bt1">Search</button>
+            </form>
             <button class="drk">dark mode</button>
           </div>
+          <!--hvvgggggggggwvbvwvbwvbwxb wxv wcv wcv cwv cv xv xv -->
           <div class="main">
+            <ul>
+              <ul>
+                {% for result in results %} {% if date >
+                result.date_to_do.date() %}
+                <div class="todo_con">
+                  <h3>{{ result.title }}</h3>
+                  <p class="hid" id="dat">{{ result.date_to_do.date() }}</p>
+                  <p class="hid" id="txt">{{ result.text }}</p>
+                  <p class="hid" id="hour">{{ result.hour_to_do }}</p>
+                  <p class="hid" id="datd">{{ result.datenow.date() }}</p>
+                </div>
+                {% endif %} {% endfor %}
+              </ul>
+            </ul>
             {% for daily in dailys %} {% if date > daily.date_to_do.date() %}
             <div class="todo_con">
               <h3>{{ daily.title }}</h3>

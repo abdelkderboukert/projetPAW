@@ -232,36 +232,39 @@ def archive():
     form = searchForm()
     dailys = to_do.query.filter(to_do.id_user==current_user.id)
     form1 = todoForm()
-    if form.validate_on_submit():
-        posts_shearch = form.search.data
-        dailys = dailys.filter(to_do.title.like('%' + posts_shearch + '%'))
-        dailys = dailys.order_by(to_do.date_to_do).order_by(to_do.title).all()
-
+    search = request.form.get('search', '')
+    result = to_do.query.filter(to_do.title.like(f'%{search}%')).all()
     current_date = datetime.datetime.now().date()
-    return render_template('archive.html', form=form, dailys=dailys, form1=form1, date= current_date)
+    return render_template('archive.html', form=form, dailys=dailys, form1=form1, date= current_date, result=result)
 
 @app.route('/todo', methods = ['GET','POST'])
 @login_required
 def todo():
-    form = searchForm()
     dailys = to_do.query.filter(to_do.id_user==current_user.id)
-    if form.validate_on_submit():
-        posts_shearch = form.search.data
-        dailys = dailys.filter(to_do.title.like('%'+ posts_shearch + '%'))
-        dailys = dailys.order_by(to_do.date_to_do)
+    search = request.form.get('search', '')
+    result = to_do.query.filter(to_do.title.like(f'%{search}%')).all()
     current_date = datetime.datetime.now().date()
-    return render_template('todo.html', form=form, dailys=dailys, date= current_date)
-
-@app.route('/test/<int:task_id>')
-@login_required
-def test(task_id):
-    if request.form['checkbox'] == 'done':
-       task = to_do.query.get_or_404(task_id)
-       task.val = 1
-       db.session.commit()
-       pass
-    return jsonify(result='success')
+    return render_template('todo.html', dailys=dailys, date= current_date, result=result)
     
+@app.route('/test', methods=['GET','POST'])
+@login_required
+def test():
+    search = request.form.get('search', '')
+    result = to_do.query.filter(to_do.title.like(f'%{search}%')).all()
+    return render_template('test.html', result=result)
+    
+@app.route('/search', methods=['GET'])
+def search():
+    query = request.args.get('query', '')
+    if query:
+        # perform the search here
+        results = to_do.query.filter(to_do.title.like(f'%{query}%')).all()
+        current_date = datetime.datetime.now().date()
+        return render_template('archive.html', results=results, date = current_date)
+    else:
+        return "Please enter a search term."
+    app.add_url_rule('/search', view_func=search, methods=['GET'])
+
 
 with app.app_context():
         db.create_all()

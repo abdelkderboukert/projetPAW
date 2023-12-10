@@ -39,10 +39,46 @@
       </a>
     </div>
   </div>
-  <div class="div2"></div>
+  <div class="div2">
+    <div class="container1"></div>
+    <div class="todo1">
+      <div class="cherche">
+        <form method="get" action="/search2">
+          <input
+            type="text"
+            id="nav"
+            name="query"
+            placeholder="Search..."
+            required
+          />
+          <button type="submit" id="bt1">Search</button>
+        </form>
+      </div>
+      <div class="main">
+        <ul>
+          <ul>
+            {% for result in results %}{% if result.id_user == current_user %}
+            <div class="todo_con1">
+              <h3>{{ result.title }}</h3>
+              <a
+                href="{{ url_for('delete_task', task_id=result.id) }}"
+                class="dlt1"
+                ><button id="dlt">Delete</button></a
+              >
+              <p class="hid" id="dat">{{ result.date_to_do.date() }}</p>
+              <p class="hid" id="txt">{{ result.text }}</p>
+              <p class="hid" id="hour">{{ result.hour_to_do }}</p>
+              <p class="hid" id="datd">{{ result.datenow.date() }}</p>
+            </div>
+            {% endif %} {% endfor %}
+          </ul>
+        </ul>
+      </div>
+    </div>
+  </div>
   <div class="div1">
     <div class="container">
-      <div class="icons">
+      <div class="icons" id="drk">
         <i class="fas fa-moon"></i>
         <i class="fas fa-sun"></i>
       </div>
@@ -75,11 +111,12 @@
         <h3>your daily for today</h3>
       </div>
       <div class="daily">
-        {% for dailys in daily %} {% if dailys.date_to_do.date() == date %}
+        {% for dailys in daily %} {% if dailys.date_to_do.date() == date %} {%
+        if dailys.hour_to_do > hour %}
         <div class="todo_con">
           <h3>{{ dailys.title }}</h3>
         </div>
-        {% endif %} {% endfor %}
+        {% endif %} {% endif %} {% endfor %}
       </div>
     </div>
   </div>

@@ -62,7 +62,7 @@
             <p>namber to do that you do it:<strong>{{ i }}</strong></p>
           </div>
           <div class="info3">
-            <button class="ds">dark mode</button>
+            <button id="drk">dark mode</button>
             <a href="{{ url_for('add_daily' )}}"
               ><button class="option">
                 <h2><ion-icon name="add-circle-outline"></ion-icon></h2>
@@ -96,6 +96,7 @@
       ></a>
     </section>
     <script src="{{ url_for('static', filename='js/profil.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/darkmode.js')}}"></script>
     <script
       type="module"
       src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"

@@ -24,11 +24,12 @@ block css %}
             value="{{ form.date_to_do.data.strftime('%Y-%m-%d') }}"
           />
         </div>
-        <div class="add1">
+        <div class="add2">
           <!--<h3>nmner replays</h3>-->
           {{ form.rep(class="btnadd",placeholder=" number replays",
           autofocus=true) }}
         </div>
+        <div class="add2">{{ form.dro(class="btnadd", autofocus=true) }}</div>
       </div>
       <div class="add" id="time">
         <div class="add1">
@@ -72,20 +73,8 @@ block css %}
     </div>
   </div>
 </section>
-
-<ul class="list-group">
-  {% for task in tasks %} {% if task.id_user == current_user %}
-  <li class="list-group-item">
-    {{ task.title }}
-    <a
-      href="{{ url_for('delete_task', task_id=task.id) }}"
-      class="btn btn-danger btn-sm float-right"
-      >Delete</a
-    >
-  </li>
-  {% endif %} {% endfor %}
-</ul>
 <script src="{{ url_for('static', filename='js/add_daily.js')}}"></script>
+<script src="{{ url_for('static', filename='js/darkmode.js')}}"></script>
 <script
   type="module"
   src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"

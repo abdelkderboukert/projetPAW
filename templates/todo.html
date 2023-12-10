@@ -13,7 +13,7 @@
       <div class="container">
         <div class="todo">
           <div class="cherche">
-            <form method="get" action="/search">
+            <form method="get" action="/search1">
               <input
                 type="text"
                 id="nav"
@@ -23,39 +23,46 @@
               />
               <button type="submit" id="bt1">Search</button>
             </form>
-            <button class="drk">dark mode</button>
+            <button id="drk">dark mode</button>
           </div>
           <div class="main">
             <ul>
               <ul>
                 {% for result in results %} {% if result.date_to_do.date() >
-                date %}
+                date or date == result.date_to_do.date() %}{% if
+                result.hour_to_do > hour or result.hour_to_do > hour %}
                 <div class="todo_con">
                   <h3>{{ result.title }}</h3>
+                  <a
+                    href="{{ url_for('delete_task', task_id=result.id) }}"
+                    class="dlt1"
+                    ><button class="dlt2">Delete</button></a
+                  >
                   <p class="hid" id="dat">{{ result.date_to_do.date() }}</p>
                   <p class="hid" id="txt">{{ result.text }}</p>
                   <p class="hid" id="hour">{{ result.hour_to_do }}</p>
                   <p class="hid" id="datd">{{ result.datenow.date() }}</p>
                 </div>
-                {% endif %} {% endfor %}
+                {% endif %} {% endif %} {% endfor %}
               </ul>
             </ul>
-            {% for daily in dailys %} {% if daily.date_to_do.date() > date %}
+            {% for daily in dailys %} {% if daily.date_to_do.date() > date or
+            daily.date_to_do.date() == date %}{% if daily.hour_to_do > hour or
+            daily.hour_to_do > hour %}
             <div class="todo_con">
-              <h3>{{ daily.title }}</h3>
-              <button id="dlt">
-                <a
-                  href="{{ url_for('delete_task', task_id=daily.id) }}"
-                  class="dlt1"
-                  >Delete</a
-                >
-              </button>
+              <h3 id="hh">{{ daily.title }}</h3>
+              <a
+                href="{{ url_for('delete_task', task_id=daily.id) }}"
+                class="dlt1"
+                ><button class="dlt2">Delete</button></a
+              >
               <p class="hid" id="dat">{{ daily.date_to_do.date() }}</p>
               <p class="hid" id="txt">{{ daily.text }}</p>
               <p class="hid" id="hour">{{ daily.hour_to_do }}</p>
               <p class="hid" id="datd">{{ daily.datenow.date() }}</p>
+              <p class="hid" id="pre">{{ daily.pre }}</p>
             </div>
-            {% endif %} {% endfor %}
+            {% endif %} {% endif %} {% endfor %}
           </div>
         </div>
         <div class="todof">
@@ -107,6 +114,7 @@
       </div>
     </section>
     <script src="{{ url_for('static', filename='js/todo.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/darkmode.js')}}"></script>
     <script
       type="module"
       src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"

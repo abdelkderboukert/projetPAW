@@ -91,6 +91,7 @@ section.dark #bt2 {
   background-color: white;
   border-radius: 20px 0px 0px 20px;
   margin: 10px 0px 10px 0px;
+  padding: 0px 0px 0px 10px;
   /*border: 2px solid black;*/
   border: none;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
@@ -111,7 +112,7 @@ section.dark #nav {
   border: none;
 }
 
-.drk {
+#drk {
   width: 100px;
   height: 40px;
   border-radius: 20px 20px 20px 20px;
@@ -120,7 +121,7 @@ section.dark #nav {
   border: none;
 }
 
-section.dark .drk {
+section.dark #drk {
   background-color: #24292d;
   color: #fff;
   box-shadow: 0 5px 10px #00001a;
@@ -150,7 +151,8 @@ section.dark .main {
   margin: 10px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   line-height: 75px;
-  flex-direction: column;
+  display: flex;
+  flex-direction: row;
 }
 
 section.dark .todo_con {
@@ -323,8 +325,34 @@ section.dark .option {
   display: none;
 }
 
+.dlt2 {
+  width: 100px;
+  height: 40px;
+  background-color: white;
+  color: black;
+  border: none;
+  border-radius: 10px;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+section.darck #dlt {
+  background-color: #323840;
+  color: #fff;
+}
+#hh {
+  height: 75px;
+  width: 500px;
+  display: inline-block;
+}
+
 .dlt1 {
-  height: 100px;
-  width: 70px;
-  background-color: #004d74;
+  width: 100px;
+  height: 50px;
+  display: inline-block;
 }

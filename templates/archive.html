@@ -24,68 +24,46 @@
               />
               <button type="submit" id="bt1">Search</button>
             </form>
-            <button class="drk">dark mode</button>
+            <button id="drk">dark mode</button>
           </div>
           <!--hvvgggggggggwvbvwvbwvbwxb wxv wcv wcv cwv cv xv xv -->
           <div class="main">
             <ul>
               <ul>
                 {% for result in results %} {% if date >
-                result.date_to_do.date() %}
+                result.date_to_do.date() or date == result.date_to_do.date()
+                %}{% if hour > result.hour_to_do %}
                 <div class="todo_con">
                   <h3>{{ result.title }}</h3>
                   <p class="hid" id="dat">{{ result.date_to_do.date() }}</p>
                   <p class="hid" id="txt">{{ result.text }}</p>
                   <p class="hid" id="hour">{{ result.hour_to_do }}</p>
                   <p class="hid" id="datd">{{ result.datenow.date() }}</p>
+                  <p class="hid" id="pre">{{ result.pre }}</p>
                 </div>
-                {% endif %} {% endfor %}
+                {% endif %} {% endif %} {% endfor %}
               </ul>
             </ul>
-            {% for daily in dailys %} {% if date > daily.date_to_do.date() %}
+            {% for daily in dailys %} {% if date > daily.date_to_do.date() or
+            date == daily.date_to_do.date() %}{% if hour > daily.hour_to_do %}
             <div class="todo_con">
               <h3>{{ daily.title }}</h3>
               <p class="hid" id="dat">{{ daily.date_to_do.date() }}</p>
               <p class="hid" id="txt">{{ daily.text }}</p>
               <p class="hid" id="hour">{{ daily.hour_to_do }}</p>
               <p class="hid" id="datd">{{ daily.datenow.date() }}</p>
+              <p class="hid" id="pre">{{ daily.pre }}</p>
             </div>
-            {% endif %} {% endfor %}
-            <div class="todo_con">
-              <h3></h3>
-            </div>
-            <div class="todo_con">
-              <h3>db</h3>
-            </div>
-            <div class="todo_con">
-              <h3>eh</h3>
-            </div>
-            <div class="todo_con">
-              <h3>hbsg</h3>
-            </div>
-            <div class="todo_con">
-              <h3>dqfhqd</h3>
-            </div>
-            <div class="todo_con">
-              <h3>dhgbsgdh</h3>
-            </div>
-            <div class="todo_con">
-              <h3>rzgegh</h3>
-            </div>
-            <div class="todo_con">
-              <h3>go to the sopper market and bay some kake</h3>
-            </div>
-            <div class="todo_con">
-              <h3>clean my gren car</h3>
-            </div>
+            {% endif %} {% endif %} {% endfor %}
           </div>
         </div>
         <div class="todof">
           <div class="inf">
             <div id="tit">
-              <h3 id="titl">go to the super market</h3>
+              <h3 id="titl"></h3>
             </div>
             <div class="conf">
+              {{ hour }}
               <div class="tff" id="f1">date do</div>
               <div class="tff" id="f2">hour do</div>
               <div class="tff" id="f3">date creat</div>
@@ -129,6 +107,7 @@
       </div>
     </section>
     <script src="{{ url_for('static', filename='js/archive.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/darkmode.js')}}"></script>
     <script
       type="module"
       src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"

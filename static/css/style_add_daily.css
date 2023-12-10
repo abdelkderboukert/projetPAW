@@ -65,6 +65,12 @@ section.dark .container {
   border-radius: 20px 20px;
 }
 
+.add2 {
+  width: 24%;
+  height: 80px;
+  border-radius: 20px 20px;
+}
+
 .container h3 {
   margin: 2px 0px 10px 20px;
 }

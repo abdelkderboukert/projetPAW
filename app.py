@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, String
 from waitress import serve
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, ValidationError, IntegerField, DateField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, ValidationError, IntegerField, DateField, SelectField
 from wtforms.validators import DataRequired, equal_to, Length
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_bcrypt import Bcrypt  # Import Bcrypt
@@ -15,6 +15,7 @@ from wtforms.widgets import TextArea
 from flask_apscheduler import APScheduler
 from flask_migrate import Migrate
 from jinja2_time import TimeExtension
+from validate_email import validate_email
 
 app = Flask(__name__)
 csrf = CSRFProtect(app)
@@ -66,9 +67,10 @@ class to_do(db.Model):
     text = db.Column(db.Text)
     id_user = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     date_to_do = db.Column(db.DateTime, nullable=False)
-    hour_to_do = db.Column(db.String(2), nullable=True, default=8)
-    min_to_do = db.Column(db.String(2), nullable=True, default=00)
-    val = db.Column(db.String(10))
+    hour_to_do = db.Column(db.Integer, nullable=True, default=8)
+    min_to_do = db.Column(db.Integer, nullable=True, default=00)
+    val = db.Column(db.String(1))
+    pre = db.Column(db.String(1))
     datenow = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
     def __repr__(self):
@@ -100,9 +102,15 @@ class addForm(FlaskForm):
     title = StringField("title", validators=[DataRequired()])
     text = StringField("text", widget=TextArea())
     date_to_do = DateField('date_to_do', format='%Y-%m-%d', validators=[DataRequired()], default=datetime.date.today())
-    hour_to_do = StringField("hour_to_do", validators=[DataRequired()])
-    min_to_do = StringField("min_to_do", validators=[DataRequired()])
+    hour_to_do = StringField("hour_to_do", validators=[DataRequired()], default=8)
+    min_to_do = StringField("min_to_do", validators=[DataRequired()], default=0)
     rep = StringField("rep", validators=[DataRequired()])
+    dro = SelectField(u'Choose a programming language', choices=[
+        (0, ''),
+        (1, 'Highest'),
+        (2, 'Medium'),
+        (3, 'Normal'),
+    ], render_kw={"placeholder": "Choose a priority"}, validators=[DataRequired()])
     submit = SubmitField('create')
 
 class searchForm(FlaskForm):
@@ -113,8 +121,11 @@ class searchForm(FlaskForm):
 @login_required
 def home():
     daily = to_do.query.filter(to_do.id_user==current_user.id)
+    search = request.form.get('search', '')
+    result = to_do.query.filter(to_do.title.like(f'%{search}%')).all()
     current_date = datetime.datetime.now().date()
-    return render_template('home.html',daily=daily, date=current_date)
+    current_hour = datetime.datetime.now().hour
+    return render_template('home.html',daily=daily, hour= current_hour, date=current_date, result=result)
 
 @app.route('/login', methods=['POST', 'GET'])#done
 def login():
@@ -124,7 +135,7 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         passed = check_password_hash(user.password_hash, form.password.data )
-        if user is None :
+        if user is None or not passed :
             form.password.data = ''
             form.email.data = ''
             flash(" this account does not exist")
@@ -146,21 +157,27 @@ def login():
 def add_user():
     form = userForm()
     if form.validate_on_submit():
-        print(form.email.data)
-        user = User.query.filter_by(email=form.email.data).first()
-        print('''user: {user}''')
-        if user is None:
-            #hash password!!
-            hashed_pw = generate_password_hash(form.password_hash.data)
-            user = User(name=form.name.data, email=form.email.data, password_hash=hashed_pw)
-            db.session.add(user)
-            db.session.commit()
+        v = validate_email(form.email.data, verify=True)
+        if v:
+          user = User.query.filter_by(email=form.email.data).first()
+          print('''user: {user}''')
+          if user is None:
+              #hash password!!
+              hashed_pw = generate_password_hash(form.password_hash.data)
+              user = User(name=form.name.data, email=form.email.data, password_hash=hashed_pw)
+              db.session.add(user)
+              db.session.commit()
 
-            flash("your account has been created please login ")
-            return redirect(url_for('login'))
-        else :
-            flash("this accont already exist please try to login")
-            return redirect(url_for('login'))     
+              flash("your account has been created please login ")
+              return redirect(url_for('login'))
+          else :
+              flash("this accont already exist please try to login")
+              return redirect(url_for('login'))     
+        else:
+           form.email.data = ''
+           return render_template('add_user.html',
+                               form = form,
+                               ) 
     else :
         return render_template('add_user.html',
                                form = form,
@@ -183,9 +200,12 @@ def add_daily():
             form.min_to_do= '00'
         
         k = int(form.rep.data)
+        p = int(form.dro.data)
+        hour = int(form.hour_to_do.data)
+        min = int(form.min_to_do.data)
         while k != -1: 
           form.date_to_do.data = form.date_to_do.data + timedelta(days=k)
-          new_task = to_do(title=form.title.data, date_to_do=form.date_to_do.data, hour_to_do=form.hour_to_do.data, min_to_do=form.min_to_do.data, text=form.text.data,id_user= current_user.id , val=0)
+          new_task = to_do(title=form.title.data, date_to_do=form.date_to_do.data, hour_to_do=hour, min_to_do=min, text=form.text.data,id_user= current_user.id , pre=p, val=0)
           db.session.add(new_task)
           db.session.commit()
           k=k-1
@@ -211,6 +231,7 @@ def delete_task(task_id):
 def profil():
     i = 0
     j = 0
+    s = 0
     dailys = to_do.query.filter(to_do.id_user==current_user.id).all()
     if dailys != None:
         for daily in dailys:
@@ -218,8 +239,8 @@ def profil():
               i = i + 1
           j = j + 1
         
-        if min(i, j) != 0:
-           num = round (1 /((i * j) / 100))
+        if i != 0:
+           num = round (1 /((i / j) / 100))
         else:
            num =0
     else:
@@ -235,7 +256,8 @@ def archive():
     search = request.form.get('search', '')
     result = to_do.query.filter(to_do.title.like(f'%{search}%')).all()
     current_date = datetime.datetime.now().date()
-    return render_template('archive.html', form=form, dailys=dailys, form1=form1, date= current_date, result=result)
+    current_hour = datetime.datetime.now().hour
+    return render_template('archive.html', form=form, dailys=dailys, form1=form1, date= current_date, hour= current_hour, result=result)
 
 @app.route('/todo', methods = ['GET','POST'])
 @login_required
@@ -244,14 +266,14 @@ def todo():
     search = request.form.get('search', '')
     result = to_do.query.filter(to_do.title.like(f'%{search}%')).all()
     current_date = datetime.datetime.now().date()
-    return render_template('todo.html', dailys=dailys, date= current_date, result=result)
+    current_hour = datetime.datetime.now().hour
+    return render_template('todo.html', dailys=dailys, date= current_date, hour= current_hour, result=result)
     
 @app.route('/test', methods=['GET','POST'])
 @login_required
 def test():
-    search = request.form.get('search', '')
-    result = to_do.query.filter(to_do.title.like(f'%{search}%')).all()
-    return render_template('test.html', result=result)
+
+    return render_template('test.html')
     
 @app.route('/search', methods=['GET'])
 def search():
@@ -260,12 +282,37 @@ def search():
         # perform the search here
         results = to_do.query.filter(to_do.title.like(f'%{query}%')).all()
         current_date = datetime.datetime.now().date()
-        return render_template('archive.html', results=results, date = current_date)
+        current_hour = datetime.datetime.now().hour
+        return render_template('archive.html', results=results, hour= current_hour, date = current_date)
     else:
         return "Please enter a search term."
     app.add_url_rule('/search', view_func=search, methods=['GET'])
 
+@app.route('/search1', methods=['GET'])
+def search1():
+    query = request.args.get('query', '')
+    if query:
+        # perform the search here
+        results = to_do.query.filter(to_do.title.like(f'%{query}%')).all()
+        current_date = datetime.datetime.now().date()
+        current_hour = datetime.datetime.now().hour
+        return render_template('todo.html', results=results, hour= current_hour, date = current_date)
+    else:
+        return "Please enter a search term."
+    app.add_url_rule('/search1', view_func=search, methods=['GET'])
 
+@app.route('/search2', methods=['GET'])
+def search2():
+    query = request.args.get('query', '')
+    if query:
+        # perform the search here
+        results = to_do.query.filter(to_do.title.like(f'%{query}%')).all()
+        current_date = datetime.datetime.now().date()
+        current_hour = datetime.datetime.now().hour
+        return render_template('home.html', results=results, hour= current_hour, date = current_date)
+    else:
+        return "Please enter a search term."
+    app.add_url_rule('/search2', view_func=search, methods=['GET'])
 with app.app_context():
         db.create_all()
 
@@ -276,3 +323,4 @@ if __name__ == "__main__":
     scheduler.add_job(id='valid', func=valid, trigger='interval', args=[1, 2], minutes=10)
     scheduler.start()
     serve(app, host='0.0.0.0', port=8080)
+ 

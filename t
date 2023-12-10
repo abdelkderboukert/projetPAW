@@ -168,3 +168,38 @@ def add_user():
         return render_template('add_user.html',
                                form = form,
                                )
+        <!-- {%block search%}
+    <ul>
+      <h2>Search Results</h2>
+      <ul>
+        {% for result in results %}
+        <li>{{ result.title }}</li>
+        {% endfor %}
+      </ul>
+      {% if not results %}
+      <p>Please enter a search term.</p>
+      {% endif %}
+    {%endblock%}
+      {% if date > result.date_to_do.date() %}
+<div class="todo_con">
+  <h3>{{ result.title }}</h3>
+  <p class="hid" id="dat">{{ result.date_to_do.date() }}</p>
+  <p class="hid" id="txt">{{ result.text }}</p>
+  <p class="hid" id="hour">{{ result.hour_to_do }}</p>
+  <p class="hid" id="datd">{{ result.datenow.date() }}</p>
+</div>
+{% endif %}{% endfor %}-->
+
+
+           <div class="cherche">
+            <!--<div class="#">
+              {{ form.hidden_tag() }}{{ form.search(id="nav",
+              placeholder="search", autofocus=true) }}
+            </div>
+            <button id="bt2">
+              {{ form.hidden_tag() }}{{ form.submit(id="bt1") }}
+            </button>
+            <button class="drk">dark mode</button>
+          </div>-->
+background: linear-gradient(87deg, #F0F8FF 73%,#F65166 98%);zr9 7mr
+background: linear-gradient(87deg, #F0F8FF 73%,#FF8C5B 98%);zr9 tchini

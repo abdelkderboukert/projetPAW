@@ -13,26 +13,20 @@
       <div class="container">
         <div class="todo">
           <div class="cherche">
-            <form method="get" action="/search1">
-              <input
-                type="text"
-                id="nav"
-                name="query"
-                placeholder="Search..."
-                required
-              />
-              <button type="submit" id="bt1">Search</button>
+            <form action="{{ url_for('todo') }}" method="get">
+              <input type="text" name="query" placeholder="Search" id="nav" />
+              <input type="submit" value="Search" id="bt1" />
             </form>
             <button id="drk">dark mode</button>
           </div>
           <div class="main">
             <ul>
               <ul>
-                {% for result in results %} {% if result.date_to_do.date() >
-                date or date == result.date_to_do.date() %}{% if
-                result.hour_to_do > hour or result.hour_to_do > hour %}
+                {% for result in results %} {% if (result.date_to_do.date() >
+                date) or( (result.date_to_do.date() == date) and
+                (result.hour_to_do > hour or hour == result.hour_to_do) )%}
                 <div class="todo_con">
-                  <h3>{{ result.title }}</h3>
+                  <h3 class="hhr">{{ result.title }}</h3>
                   <a
                     href="{{ url_for('delete_task', task_id=result.id) }}"
                     class="dlt1"
@@ -43,12 +37,12 @@
                   <p class="hid" id="hour">{{ result.hour_to_do }}</p>
                   <p class="hid" id="datd">{{ result.datenow.date() }}</p>
                 </div>
-                {% endif %} {% endif %} {% endfor %}
+                {% endif %} {% endfor %}
               </ul>
             </ul>
-            {% for daily in dailys %} {% if daily.date_to_do.date() > date or
-            daily.date_to_do.date() == date %}{% if daily.hour_to_do > hour or
-            daily.hour_to_do > hour %}
+            {% for daily in dailys %} {% if (daily.date_to_do.date() > date) or(
+            (daily.date_to_do.date() == date) and (daily.hour_to_do > hour or
+            hour == daily.hour_to_do) )%}
             <div class="todo_con">
               <h3 id="hh">{{ daily.title }}</h3>
               <a
@@ -62,7 +56,7 @@
               <p class="hid" id="datd">{{ daily.datenow.date() }}</p>
               <p class="hid" id="pre">{{ daily.pre }}</p>
             </div>
-            {% endif %} {% endif %} {% endfor %}
+            {% endif %} {% endfor %}
           </div>
         </div>
         <div class="todof">

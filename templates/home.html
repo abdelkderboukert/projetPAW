@@ -40,37 +40,49 @@
     </div>
   </div>
   <div class="div2">
-    <div class="container1"></div>
+    <div class="container1">
+      <div class="wrapper">
+        <header>
+          <p class="current-date"></p>
+          <div class="icons">
+            <span id="prev" class="material-symbols-rounded"></span>
+            <span id="next" class="material-symbols-rounded"></span>
+          </div>
+        </header>
+        <div class="calendar">
+          <ul class="weeks">
+            <li>Sun</li>
+            <li>Mon</li>
+            <li>Tue</li>
+            <li>Wed</li>
+            <li>Thu</li>
+            <li class="wend">Fri</li>
+            <li class="wend">Sat</li>
+          </ul>
+          <ul class="days"></ul>
+        </div>
+      </div>
+    </div>
     <div class="todo1">
       <div class="cherche">
-        <form method="get" action="/search2">
-          <input
-            type="text"
-            id="nav"
-            name="query"
-            placeholder="Search..."
-            required
-          />
-          <button type="submit" id="bt1">Search</button>
+        <form action="{{ url_for('home') }}" method="get">
+          <input type="text" name="query" placeholder="Search" id="nav" />
+          <input type="submit" value="Search" id="bt1" />
         </form>
       </div>
       <div class="main">
         <ul>
           <ul>
-            {% for result in results %}{% if result.id_user == current_user %}
+            {% for result in results %}
             <div class="todo_con1">
-              <h3>{{ result.title }}</h3>
+              <h3 class="hhr">{{ result.title }}</h3>
               <a
                 href="{{ url_for('delete_task', task_id=result.id) }}"
                 class="dlt1"
                 ><button id="dlt">Delete</button></a
               >
-              <p class="hid" id="dat">{{ result.date_to_do.date() }}</p>
-              <p class="hid" id="txt">{{ result.text }}</p>
-              <p class="hid" id="hour">{{ result.hour_to_do }}</p>
-              <p class="hid" id="datd">{{ result.datenow.date() }}</p>
             </div>
-            {% endif %} {% endfor %}
+            {% endfor %}
           </ul>
         </ul>
       </div>
@@ -111,12 +123,11 @@
         <h3>your daily for today</h3>
       </div>
       <div class="daily">
-        {% for dailys in daily %} {% if dailys.date_to_do.date() == date %} {%
-        if dailys.hour_to_do > hour %}
+        {% for daily in dailys %} {% if daily.date_to_do.date() == date %}
         <div class="todo_con">
-          <h3>{{ dailys.title }}</h3>
+          <h3>{{ daily.title }}</h3>
         </div>
-        {% endif %} {% endif %} {% endfor %}
+        {% endif %} {% endfor %}
       </div>
     </div>
   </div>

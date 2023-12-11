@@ -202,4 +202,4 @@ def add_user():
             <button class="drk">dark mode</button>
           </div>-->
 background: linear-gradient(87deg, #F0F8FF 73%,#F65166 98%);zr9 7mr
-background: linear-gradient(87deg, #F0F8FF 73%,#FF8C5B 98%);zr9 tchini
+background: linear-gradient(87deg, #F0F8FF 73%,#FF8C5B 98%);zr9 tchini     chevron_right    chevron_left

@@ -351,6 +351,12 @@ section.darck #dlt {
   display: inline-block;
 }
 
+.hhr {
+  height: 75px;
+  width: 500px;
+  display: inline-block;
+}
+
 .dlt1 {
   width: 100px;
   height: 50px;

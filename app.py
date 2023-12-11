@@ -120,12 +120,15 @@ class searchForm(FlaskForm):
 @app.route('/')
 @login_required
 def home():
-    daily = to_do.query.filter(to_do.id_user==current_user.id)
-    search = request.form.get('search', '')
-    result = to_do.query.filter(to_do.title.like(f'%{search}%')).all()
+    search_query = request.args.get('query')
+    if search_query:
+        results = to_do.query.filter(to_do.title.like(f'%{search_query}%')).all()
+    else:
+        results = []
+    dailys=to_do.query.filter(to_do.id_user==current_user.id)   
     current_date = datetime.datetime.now().date()
     current_hour = datetime.datetime.now().hour
-    return render_template('home.html',daily=daily, hour= current_hour, date=current_date, result=result)
+    return render_template('home.html',daily=dailys, hour= current_hour, date=current_date, results=results)
 
 @app.route('/login', methods=['POST', 'GET'])#done
 def login():
@@ -250,69 +253,37 @@ def profil():
 @app.route('/arvhive', methods = ['GET', 'POST'])
 @login_required
 def archive():
-    form = searchForm()
-    dailys = to_do.query.filter(to_do.id_user==current_user.id)
-    form1 = todoForm()
-    search = request.form.get('search', '')
-    result = to_do.query.filter(to_do.title.like(f'%{search}%')).all()
+    form1 = todoForm() 
+    search_query = request.args.get('query')
+    if search_query:
+        results = to_do.query.filter(to_do.title.like(f'%{search_query}%')).all()
+    else:
+        results = []
+    dailys=to_do.query.filter(to_do.id_user==current_user.id)
     current_date = datetime.datetime.now().date()
     current_hour = datetime.datetime.now().hour
-    return render_template('archive.html', form=form, dailys=dailys, form1=form1, date= current_date, hour= current_hour, result=result)
+    return render_template('archive.html', dailys=dailys, form1=form1, date= current_date, hour= current_hour, results=results)
 
 @app.route('/todo', methods = ['GET','POST'])
 @login_required
 def todo():
-    dailys = to_do.query.filter(to_do.id_user==current_user.id)
-    search = request.form.get('search', '')
-    result = to_do.query.filter(to_do.title.like(f'%{search}%')).all()
+    form1 = todoForm() 
+    search_query = request.args.get('query')
+    if search_query:
+        results = to_do.query.filter(to_do.title.like(f'%{search_query}%')).all()
+    else:
+        results = []
+    dailys=to_do.query.filter(to_do.id_user==current_user.id)
     current_date = datetime.datetime.now().date()
     current_hour = datetime.datetime.now().hour
-    return render_template('todo.html', dailys=dailys, date= current_date, hour= current_hour, result=result)
+    return render_template('todo.html', dailys=dailys, form1=form1, date= current_date, hour= current_hour, results=results)
     
 @app.route('/test', methods=['GET','POST'])
 @login_required
 def test():
+  return render_template('test.html')
 
-    return render_template('test.html')
-    
-@app.route('/search', methods=['GET'])
-def search():
-    query = request.args.get('query', '')
-    if query:
-        # perform the search here
-        results = to_do.query.filter(to_do.title.like(f'%{query}%')).all()
-        current_date = datetime.datetime.now().date()
-        current_hour = datetime.datetime.now().hour
-        return render_template('archive.html', results=results, hour= current_hour, date = current_date)
-    else:
-        return "Please enter a search term."
-    app.add_url_rule('/search', view_func=search, methods=['GET'])
 
-@app.route('/search1', methods=['GET'])
-def search1():
-    query = request.args.get('query', '')
-    if query:
-        # perform the search here
-        results = to_do.query.filter(to_do.title.like(f'%{query}%')).all()
-        current_date = datetime.datetime.now().date()
-        current_hour = datetime.datetime.now().hour
-        return render_template('todo.html', results=results, hour= current_hour, date = current_date)
-    else:
-        return "Please enter a search term."
-    app.add_url_rule('/search1', view_func=search, methods=['GET'])
-
-@app.route('/search2', methods=['GET'])
-def search2():
-    query = request.args.get('query', '')
-    if query:
-        # perform the search here
-        results = to_do.query.filter(to_do.title.like(f'%{query}%')).all()
-        current_date = datetime.datetime.now().date()
-        current_hour = datetime.datetime.now().hour
-        return render_template('home.html', results=results, hour= current_hour, date = current_date)
-    else:
-        return "Please enter a search term."
-    app.add_url_rule('/search2', view_func=search, methods=['GET'])
 with app.app_context():
         db.create_all()
 

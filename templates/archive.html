@@ -14,15 +14,9 @@
         <div class="todo">
           <div class="cherche">
             <!--hvvgggggggggwvbvwvbwvbwxb wxv wcv wcv cwv cv xv xv -->
-            <form method="get" action="/search">
-              <input
-                type="text"
-                id="nav"
-                name="query"
-                placeholder="Search..."
-                required
-              />
-              <button type="submit" id="bt1">Search</button>
+            <form action="{{ url_for('archive') }}" method="get">
+              <input type="text" name="query" placeholder="Search" id="nav" />
+              <input type="submit" value="Search" id="bt1" />
             </form>
             <button id="drk">dark mode</button>
           </div>
@@ -31,8 +25,7 @@
             <ul>
               <ul>
                 {% for result in results %} {% if date >
-                result.date_to_do.date() or date == result.date_to_do.date()
-                %}{% if hour > result.hour_to_do %}
+                result.date_to_do.date() or date == result.date_to_do.date() %}
                 <div class="todo_con">
                   <h3>{{ result.title }}</h3>
                   <p class="hid" id="dat">{{ result.date_to_do.date() }}</p>
@@ -41,11 +34,11 @@
                   <p class="hid" id="datd">{{ result.datenow.date() }}</p>
                   <p class="hid" id="pre">{{ result.pre }}</p>
                 </div>
-                {% endif %} {% endif %} {% endfor %}
+                {% endif %} {% endfor %}
               </ul>
             </ul>
-            {% for daily in dailys %} {% if date > daily.date_to_do.date() or
-            date == daily.date_to_do.date() %}{% if hour > daily.hour_to_do %}
+            {% for daily in dailys %} {% if date > daily.date_to_do.date() or(
+            (date == daily.date_to_do.date()) and (hour > daily.hour_to_do)) %}
             <div class="todo_con">
               <h3>{{ daily.title }}</h3>
               <p class="hid" id="dat">{{ daily.date_to_do.date() }}</p>
@@ -54,7 +47,7 @@
               <p class="hid" id="datd">{{ daily.datenow.date() }}</p>
               <p class="hid" id="pre">{{ daily.pre }}</p>
             </div>
-            {% endif %} {% endif %} {% endfor %}
+            {% endif %} {% endfor %}
           </div>
         </div>
         <div class="todof">
@@ -63,7 +56,6 @@
               <h3 id="titl"></h3>
             </div>
             <div class="conf">
-              {{ hour }}
               <div class="tff" id="f1">date do</div>
               <div class="tff" id="f2">hour do</div>
               <div class="tff" id="f3">date creat</div>

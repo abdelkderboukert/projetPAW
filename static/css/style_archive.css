@@ -165,13 +165,28 @@ section.dark .todo_con {
   margin: 0pc 0px 0px 10px;
 }
 
-.conck {
-  width: 20px;
-  height: 75px;
-  /* margin: 0px 0px 0px 50px;*/
-  position: absolute;
-  top: 5px;
-  left: 600px;
+.Highest {
+  background: linear-gradient(89deg, #f0f8ff 14%, #ff0000 100%);
+}
+
+section.dark .Highest {
+  background: linear-gradient(89deg, #24292d 14%, #ff0000 100%);
+}
+
+.Medium {
+  background: linear-gradient(89deg, #f0f8ff 14%, #ff6900 100%);
+}
+
+section.dark .Medium {
+  background: linear-gradient(89deg, #24292d 14%, #ff6900 100%);
+}
+
+.Normal {
+  background: linear-gradient(89deg, #f0f8ff 14%, #00ff04 100%);
+}
+
+section.dark .Normal {
+  background: linear-gradient(89deg, #24292d 14%, #00ff04 100%);
 }
 
 .ckbox {
@@ -342,4 +357,9 @@ section.dark .option {
 }
 .hid {
   display: none;
+}
+
+.dn {
+  padding: 0 0 0 10px;
+  size: 10px;
 }

@@ -164,6 +164,30 @@ section.dark .todo_con {
   margin: 0pc 0px 0px 10px;
 }
 
+.Highest {
+  background: linear-gradient(89deg, #f0f8ff 14%, #ff0000 100%);
+}
+
+section.dark .Highest {
+  background: linear-gradient(89deg, #24292d 14%, #ff0000 100%);
+}
+
+.Medium {
+  background: linear-gradient(89deg, #f0f8ff 14%, #ff6900 100%);
+}
+
+section.dark .Medium {
+  background: linear-gradient(89deg, #24292d 14%, #ff6900 100%);
+}
+
+.Normal {
+  background: linear-gradient(89deg, #f0f8ff 14%, #00ff04 100%);
+}
+
+section.dark .Normal {
+  background: linear-gradient(89deg, #24292d 14%, #00ff04 100%);
+}
+
 .todof {
   width: 400px;
   height: 500px;
@@ -331,7 +355,7 @@ section.dark .option {
   background-color: white;
   color: black;
   border: none;
-  border-radius: 10px;
+  border-radius: 10px 0px 0px 10px;
   padding: 5px 10px;
   text-align: center;
   text-decoration: none;
@@ -341,6 +365,36 @@ section.dark .option {
   cursor: pointer;
 }
 
+.tkc {
+  width: 20px;
+  height: 100%;
+  color: black;
+  border: none;
+  padding: 1px 0 0 0;
+  text-align: center;
+  /*margin: 10px 0 0 0;*/
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+.do {
+  width: 20px;
+  height: 40px;
+  background-color: white;
+  color: black;
+  border: none;
+  border-radius: 0px 10px 10px 0px;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  /*display: inline-block;*/
+  line-height: 40px;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
 section.darck #dlt {
   background-color: #323840;
   color: #fff;

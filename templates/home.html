@@ -45,8 +45,12 @@
         <header>
           <p class="current-date"></p>
           <div class="icons">
-            <span id="prev" class="material-symbols-rounded"></span>
-            <span id="next" class="material-symbols-rounded"></span>
+            <span id="prev" class="material-symbols-rounded"
+              ><ion-icon name="arrow-back-outline"></ion-icon
+            ></span>
+            <span id="next" class="material-symbols-rounded"
+              ><ion-icon name="arrow-forward-outline"></ion-icon
+            ></span>
           </div>
         </header>
         <div class="calendar">
@@ -73,8 +77,10 @@
       <div class="main">
         <ul>
           <ul>
-            {% for result in results %}
-            <div class="todo_con1">
+            {% for result in results %}{% if id_user==current_user %}
+            <div
+              class="todo_con1 {{ 'Highest' if  result.pre == '1' else 'Medium' if  result.pre == '2' else 'Normal' if  result.pre == '3' else '' }}"
+            >
               <h3 class="hhr">{{ result.title }}</h3>
               <a
                 href="{{ url_for('delete_task', task_id=result.id) }}"
@@ -82,7 +88,7 @@
                 ><button id="dlt">Delete</button></a
               >
             </div>
-            {% endfor %}
+            {% endif %}{% endfor %}
           </ul>
         </ul>
       </div>
@@ -123,9 +129,18 @@
         <h3>your daily for today</h3>
       </div>
       <div class="daily">
-        {% for daily in dailys %} {% if daily.date_to_do.date() == date %}
-        <div class="todo_con">
-          <h3>{{ daily.title }}</h3>
+        {% for daily in dailys %} {% if (daily.date_to_do.date() == date) and
+        (daily.val== '0') %}
+        <div
+          class="todo_con {{ 'Highest' if daily.pre == '1' else 'Medium' if daily.pre == '2' else 'Normal' if daily.pre == '3' else '' }}"
+        >
+          <h3 class="ht">{{ daily.title }}</h3>
+          <div class="tkc">
+            <button class="do">
+              <ion-icon name="checkmark-outline"></ion-icon>
+              <p class="hid" id="id">{{ daily.id }}</p>
+            </button>
+          </div>
         </div>
         {% endif %} {% endfor %}
       </div>

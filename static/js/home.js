@@ -133,3 +133,28 @@ prevNextIcon.forEach((icon) => {
     renderCalendar(); // calling renderCalendar function
   });
 });
+let todo = document.querySelectorAll(".div1 .todo .daily .todo_con");
+let butt = document.querySelectorAll(".div1 .todo .daily .todo_con .tkc .do");
+console.log(butt);
+console.log(todo);
+for (const el of butt) {
+  const id = el.querySelector("#id").textContent;
+
+  el.addEventListener("click", async function () {
+    console.log(id);
+    const response = await fetch("/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: id }),
+    });
+    console.log(response);
+    if (!response.ok) {
+      console.error("An error occurred:", response.statusText);
+    }
+    const data = await response.text();
+    console.log(data.message);
+    location.reload();
+  });
+}

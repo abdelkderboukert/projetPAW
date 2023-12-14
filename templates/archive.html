@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>your archive</title>
-    <link rel="website icon" type="png" href="" />
+    <link rel="website icon" type="png" href="#" />
     <link
       href="{{ url_for('static', filename='css/style_archive.css')}}"
       rel="stylesheet"
@@ -25,8 +25,11 @@
             <ul>
               <ul>
                 {% for result in results %} {% if date >
-                result.date_to_do.date() or date == result.date_to_do.date() %}
-                <div class="todo_con">
+                result.date_to_do.date() or( (date == result.date_to_do.date())
+                and (hour > result.hour_to_do)) or (result.val == '1') %}
+                <div
+                  class="todo_con {{ 'Highest' if result.pre == '1' else 'Medium' if result.pre == '2' else 'Normal' if result.pre == '3' else '' }}"
+                >
                   <h3>{{ result.title }}</h3>
                   <p class="hid" id="dat">{{ result.date_to_do.date() }}</p>
                   <p class="hid" id="txt">{{ result.text }}</p>
@@ -38,9 +41,15 @@
               </ul>
             </ul>
             {% for daily in dailys %} {% if date > daily.date_to_do.date() or(
-            (date == daily.date_to_do.date()) and (hour > daily.hour_to_do)) %}
-            <div class="todo_con">
+            (date == daily.date_to_do.date()) and (hour > daily.hour_to_do)) or
+            (daily.val == '1' ) %}
+            <div
+              class="todo_con {{ 'Highest' if daily.pre == '1' else 'Medium' if daily.pre == '2' else 'Normal' if daily.pre == '3' else '' }}"
+            >
               <h3>{{ daily.title }}</h3>
+              {% if daily.val== '1' %}
+              <p class="dn">(done)</p>
+              {% endif %}
               <p class="hid" id="dat">{{ daily.date_to_do.date() }}</p>
               <p class="hid" id="txt">{{ daily.text }}</p>
               <p class="hid" id="hour">{{ daily.hour_to_do }}</p>

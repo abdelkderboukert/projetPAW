@@ -32,3 +32,26 @@ for (const el of todo) {
     txt1.textContent = txt.textContent;
   });
 }
+let butt = document.querySelectorAll(".container .todo .main .todo_con .do");
+console.log(butt);
+for (const el of todo) {
+  const id = el.querySelector("#id").textContent;
+
+  el.addEventListener("click", async function () {
+    console.log(id);
+    const response = await fetch("/todo", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: id }),
+    });
+    console.log(response);
+    if (!response.ok) {
+      console.error("An error occurred:", response.statusText);
+    }
+    const data = await response.text();
+    console.log(data.message);
+    location.reload();
+  });
+}

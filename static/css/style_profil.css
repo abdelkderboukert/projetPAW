@@ -86,9 +86,8 @@ section.dark #drk {
   margin: 10px;
   line-height: 30px;
 
-  text-align: center;
-  align-items: center;
   justify-content: center;
+  text-align: left;
   flex-direction: column;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
@@ -126,6 +125,7 @@ section.dark .info {
   position: relative;
   top: -60px;
   transform: translate(0%);
+  margin: 0 0 0 17%;
 }
 
 section.dark .ph {
@@ -240,4 +240,7 @@ svg {
   background-color: #ffff;
   color: #24292d;
   border: none;
+}
+.ppp {
+  margin: 10px;
 }

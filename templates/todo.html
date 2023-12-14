@@ -24,39 +24,58 @@
               <ul>
                 {% for result in results %} {% if (result.date_to_do.date() >
                 date) or( (result.date_to_do.date() == date) and
-                (result.hour_to_do > hour or hour == result.hour_to_do) )%}
-                <div class="todo_con">
+                (result.hour_to_do > hour or hour == result.hour_to_do) ) %}{%
+                if result.val == '0' %}
+                <div
+                  class="todo_con {{ 'Highest' if result.pre == '1' else 'Medium' if result.pre == '2' else 'Normal' if result.pre == '3' else '' }}"
+                >
                   <h3 class="hhr">{{ result.title }}</h3>
                   <a
                     href="{{ url_for('delete_task', task_id=result.id) }}"
                     class="dlt1"
                     ><button class="dlt2">Delete</button></a
                   >
+                  <div class="tkc">
+                    <button class="do">
+                      <ion-icon name="checkmark-outline"></ion-icon>
+                    </button>
+                  </div>
                   <p class="hid" id="dat">{{ result.date_to_do.date() }}</p>
                   <p class="hid" id="txt">{{ result.text }}</p>
                   <p class="hid" id="hour">{{ result.hour_to_do }}</p>
                   <p class="hid" id="datd">{{ result.datenow.date() }}</p>
+                  <p class="hid" id="pre">{{ result.pre }}</p>
+                  <p class="hid" id="id">{{ result.id }}</p>
                 </div>
-                {% endif %} {% endfor %}
+                {% endif %} {% endif %} {% endfor %}
               </ul>
             </ul>
-            {% for daily in dailys %} {% if (daily.date_to_do.date() > date) or(
-            (daily.date_to_do.date() == date) and (daily.hour_to_do > hour or
-            hour == daily.hour_to_do) )%}
-            <div class="todo_con">
+            {% for daily in dailys %} {% if (daily.date_to_do.date() > date) or
+            ( (daily.date_to_do.date() == date) and (daily.hour_to_do > hour or
+            hour == daily.hour_to_do) ) %} {% if daily.val == '0' %}
+            <div
+              class="todo_con {{ 'Highest' if daily.pre == '1' else 'Medium' if daily.pre == '2' else 'Normal' if daily.pre == '3' else '' }}"
+            >
               <h3 id="hh">{{ daily.title }}</h3>
               <a
                 href="{{ url_for('delete_task', task_id=daily.id) }}"
                 class="dlt1"
                 ><button class="dlt2">Delete</button></a
               >
+              <div class="tkc">
+                <button class="do">
+                  <ion-icon name="checkmark-outline"></ion-icon>
+                </button>
+              </div>
+              <form action="/todo"></form>
               <p class="hid" id="dat">{{ daily.date_to_do.date() }}</p>
               <p class="hid" id="txt">{{ daily.text }}</p>
               <p class="hid" id="hour">{{ daily.hour_to_do }}</p>
               <p class="hid" id="datd">{{ daily.datenow.date() }}</p>
               <p class="hid" id="pre">{{ daily.pre }}</p>
+              <p class="hid" id="id">{{ daily.id }}</p>
             </div>
-            {% endif %} {% endfor %}
+            {% endif %} {% endif %} {% endfor %}
           </div>
         </div>
         <div class="todof">

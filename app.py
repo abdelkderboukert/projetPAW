@@ -1,11 +1,11 @@
-from flask import Flask, render_template, redirect, url_for, flash, request, jsonify
+from flask import Flask, render_template, redirect, url_for, flash, request, jsonify, json
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, String
 from waitress import serve
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, ValidationError, IntegerField, DateField, SelectField
 from wtforms.validators import DataRequired, equal_to, Length
-from flask_wtf.csrf import CSRFProtect, generate_csrf
+from flask_wtf.csrf import CSRFProtect, generate_csrf, validate_csrf
 from flask_bcrypt import Bcrypt  # Import Bcrypt
 from flask_login import UserMixin, login_user, login_manager, logout_user, login_required, current_user, login_remembered,LoginManager
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -18,7 +18,7 @@ from jinja2_time import TimeExtension
 from validate_email import validate_email
 
 app = Flask(__name__)
-csrf = CSRFProtect(app)
+#csrf = CSRFProtect(app)
 app.config['SECRET_KEY'] = '5511467d654732b6d9875da2691f78fd'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
 db = SQLAlchemy(app)
@@ -69,8 +69,8 @@ class to_do(db.Model):
     date_to_do = db.Column(db.DateTime, nullable=False)
     hour_to_do = db.Column(db.Integer, nullable=True, default=8)
     min_to_do = db.Column(db.Integer, nullable=True, default=00)
-    val = db.Column(db.String(1))
-    pre = db.Column(db.String(1))
+    val = db.Column(db.String(1), default=0)
+    pre = db.Column(db.String(1), default=3)
     datenow = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
     def __repr__(self):
@@ -117,7 +117,7 @@ class searchForm(FlaskForm):
     search = StringField("search", validators=[DataRequired()])
     submit = SubmitField('search')
 
-@app.route('/')
+@app.route('/', methods=['POST', 'GET'])
 @login_required
 def home():
     search_query = request.args.get('query')
@@ -128,9 +128,17 @@ def home():
     dailys=to_do.query.filter(to_do.id_user==current_user.id)   
     current_date = datetime.datetime.now().date()
     current_hour = datetime.datetime.now().hour
-    return render_template('home.html',daily=dailys, hour= current_hour, date=current_date, results=results)
+    if request.method == "POST":
+     data = request.get_json()
+     daily_id = data['id']
+     dail = int(daily_id)
+     di = to_do.query.filter(to_do.id==dail).first()
+     di.val= '1'
+     db.session.add(di)
+     db.session.commit() 
+    return render_template('home.html',dailys=dailys, hour= current_hour, date=current_date, results=results)
 
-@app.route('/login', methods=['POST', 'GET'])#done
+@app.route('/login', methods=['POST', 'GET'])
 def login():
     form=loginForm()
     for i in enumerate(form):
@@ -146,7 +154,8 @@ def login():
         else :
             if passed is True :
                 flash("login successful")
-                login_user(user)
+                #login_user(user)
+                login_user(user, remember=True)
                 return redirect(url_for('home'))
             else :
                 flash("wrong password try again")
@@ -156,7 +165,7 @@ def login():
     else :
       return render_template('login.html', form = form)
     
-@app.route('/add_user', methods = ['POST' , 'GET'])#done
+@app.route('/add_user', methods = ['POST' , 'GET'])
 def add_user():
     form = userForm()
     if form.validate_on_submit():
@@ -186,13 +195,13 @@ def add_user():
                                form = form,
                                )
 
-@app.route('/logout', methods = ['GET', 'POST'])#done
+@app.route('/logout', methods = ['GET', 'POST'])
 @login_required
 def log_out():
     logout_user()
     return redirect(url_for('login'))
 
-@app.route('/add-daily', methods = ['GET', 'POST'])#done
+@app.route('/add-daily', methods = ['GET', 'POST'])
 @login_required
 def add_daily():
     form = addForm()
@@ -220,7 +229,7 @@ def add_daily():
     tasks = to_do.query.all()
     return render_template('add_daily.html', form=form, tasks=tasks)
 
-@app.route('/delete/<int:task_id>')#done
+@app.route('/delete/<int:task_id>')
 @login_required
 def delete_task(task_id):
     task = to_do.query.get_or_404(task_id)
@@ -229,21 +238,20 @@ def delete_task(task_id):
     flash('Task deleted successfully!', 'success')
     return redirect(url_for('todo'))
 
-@app.route('/profil', methods = ['GET','POST'])#done
+@app.route('/profil', methods = ['GET','POST'])
 @login_required
 def profil():
     i = 0
     j = 0
-    s = 0
     dailys = to_do.query.filter(to_do.id_user==current_user.id).all()
     if dailys != None:
         for daily in dailys:
-          if daily.val == '0':
+          if daily.val == '1':
               i = i + 1
           j = j + 1
         
         if i != 0:
-           num = round (1 /((i / j) / 100))
+           num = round (1 /((j / i) / 100))
         else:
            num =0
     else:
@@ -273,9 +281,17 @@ def todo():
         results = to_do.query.filter(to_do.title.like(f'%{search_query}%')).all()
     else:
         results = []
-    dailys=to_do.query.filter(to_do.id_user==current_user.id)
+    dailys=to_do.query.filter(to_do.id_user==current_user.id).all()
     current_date = datetime.datetime.now().date()
     current_hour = datetime.datetime.now().hour
+    if request.method == "POST":
+     data = request.get_json()
+     daily_id = data['id']
+     dail = int(daily_id)
+     di = to_do.query.filter(to_do.id==dail).first()
+     di.val= '1'
+     db.session.add(di)
+     db.session.commit()
     return render_template('todo.html', dailys=dailys, form1=form1, date= current_date, hour= current_hour, results=results)
     
 @app.route('/test', methods=['GET','POST'])

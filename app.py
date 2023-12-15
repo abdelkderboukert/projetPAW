@@ -19,6 +19,7 @@ from validate_email import validate_email
 
 app = Flask(__name__)
 #csrf = CSRFProtect(app)
+REMEMBER_COOKIE_DURATION = timedelta(days=30)
 app.config['SECRET_KEY'] = '5511467d654732b6d9875da2691f78fd'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
 db = SQLAlchemy(app)
@@ -46,6 +47,7 @@ class User(db.Model, UserMixin):
     name = db.Column(db.String(30), unique=True, nullable=False)
     email = db.Column(db.String(50), unique=True, nullable=False)
     password_hash = db.Column(db.String(200), nullable=False)
+    post = db.relationship('to_do', backref='todos')  
 
     @property
     def password(self):
@@ -84,9 +86,15 @@ class userForm(FlaskForm):
     password_hash2 = PasswordField("password", validators=[DataRequired()]) 
     submit = SubmitField('creat a new account') 
 
+class edit_userForm(FlaskForm):
+    name = StringField("name", validators=[DataRequired()])
+    email = StringField("email", validators=[DataRequired()])
+    submit = SubmitField('update')
+
 class loginForm(FlaskForm):
     email = StringField("email", validators=[DataRequired()])
     password = PasswordField("password", validators=[DataRequired()]) 
+    remember = BooleanField('Remember me')
     submit = SubmitField('login')     
     
 class todoForm(FlaskForm):
@@ -153,9 +161,9 @@ def login():
             return render_template('login.html', form = form)
         else :
             if passed is True :
+                b = form.remember.data
                 flash("login successful")
-                #login_user(user)
-                login_user(user, remember=True)
+                login_user(user, remember=b)
                 return redirect(url_for('home'))
             else :
                 flash("wrong password try again")
@@ -294,10 +302,53 @@ def todo():
      db.session.commit()
     return render_template('todo.html', dailys=dailys, form1=form1, date= current_date, hour= current_hour, results=results)
     
-@app.route('/test', methods=['GET','POST'])
+@app.route('/profil/edit/<int:id>', methods=['GET','POST'])
 @login_required
-def test():
-  return render_template('test.html')
+def profil_edit(id):
+    form = edit_userForm()
+    user = User.query.get_or_404(id)
+    i = 0
+    j = 0
+    b = False
+    dailys = to_do.query.filter(to_do.id_user==current_user.id).all()
+    if dailys != None:
+        for daily in dailys:
+          if daily.val == '1':
+              i = i + 1
+          j = j + 1
+        
+        if i != 0:
+           num = round (1 /((j / i) / 100))
+        else:
+           num =0
+    else:
+        num = 0
+    if form.validate_on_submit():
+        b= True
+    print(b)
+    print(id)
+    if form.validate_on_submit():
+        if form.email.data == '':
+            form.email.data = user.email
+            
+        print(form.email.data)
+        if form.name.data == '':
+            form.name.data = user.name
+
+        v = validate_email(form.email.data, verify=True)
+        if v:
+         user.name = form.name.data
+         user.email = form.email.data
+         print(user.name)
+         # update the database
+         db.session.commit()
+
+        # redirect to the profile page
+        return redirect(url_for('profil'))
+    
+    form.email.data = current_user.email
+    form.name.data = current_user.name
+    return render_template('edit.html', form=form, num=num, j=j, i=i)
 
 
 with app.app_context():

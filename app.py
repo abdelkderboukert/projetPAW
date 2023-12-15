@@ -87,8 +87,8 @@ class userForm(FlaskForm):
     submit = SubmitField('creat a new account') 
 
 class edit_userForm(FlaskForm):
-    name = StringField("name", validators=[DataRequired()])
-    email = StringField("email", validators=[DataRequired()])
+    name = StringField("name", validators=[DataRequired()], render_kw={"autocomplete": "name"})
+    email = StringField("email", validators=[DataRequired()], render_kw={"autocomplete": "email"})
     submit = SubmitField('update')
 
 class loginForm(FlaskForm):
@@ -302,14 +302,14 @@ def todo():
      db.session.commit()
     return render_template('todo.html', dailys=dailys, form1=form1, date= current_date, hour= current_hour, results=results)
     
-@app.route('/profil/edit/<int:id>', methods=['GET','POST'])
+@app.route('/profil/edit', methods=['GET','POST'])
 @login_required
-def profil_edit(id):
+def profil_edit():
     form = edit_userForm()
-    user = User.query.get_or_404(id)
+    user = current_user
     i = 0
     j = 0
-    b = False
+    print(user.name)
     dailys = to_do.query.filter(to_do.id_user==current_user.id).all()
     if dailys != None:
         for daily in dailys:
@@ -323,14 +323,11 @@ def profil_edit(id):
            num =0
     else:
         num = 0
-    if form.validate_on_submit():
-        b= True
-    print(b)
-    print(id)
+
     if form.validate_on_submit():
         if form.email.data == '':
             form.email.data = user.email
-            
+        print(form.email.data)
         print(form.email.data)
         if form.name.data == '':
             form.name.data = user.name
@@ -342,7 +339,9 @@ def profil_edit(id):
          print(user.name)
          # update the database
          db.session.commit()
-
+        else:
+            form.email.data = ''
+            return render_template('edit.html', form=form, num=num, j=j, i=i)
         # redirect to the profile page
         return redirect(url_for('profil'))
     
@@ -350,6 +349,35 @@ def profil_edit(id):
     form.name.data = current_user.name
     return render_template('edit.html', form=form, num=num, j=j, i=i)
 
+@app.route('/test', methods = ['POST','GET'])
+def test():
+    form = edit_userForm()
+
+    user = current_user
+    if form.validate_on_submit():
+        print(form.name.data)
+        if form.email.data == '':
+            form.email.data = user.email
+        if form.name.data == '':
+            form.name.data = user.name
+        print(form.name.data)
+        v = validate_email(form.email.data, verify=True)
+        if v:
+         user.name = form.name.data
+         user.email = form.email.data
+         print(user.name)
+         # update the database
+         db.session.commit()
+         # redirect to the profile page
+         return redirect(url_for('profil'))
+        else:
+            form.email.data = ''
+            return render_template('edit.html', form=form)
+        
+    form.email.data = user.email
+    form.name.data = user.name
+
+    return render_template('test.html', form=form)
 
 with app.app_context():
         db.create_all()

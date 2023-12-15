@@ -25,16 +25,17 @@
               class="ph"
             />
             <div class="cntr">
-              <div class="inputbox">
-                <icon-icon name="mail-outline"></icon-icon>
-                {{ form.hidden_tag() }} {{ form.name() }}
-                <label for="">name</label>
-              </div>
-              <div class="inputbox">
-                {{ form.hidden_tag() }} {{ form.email() }}
-                <label for="">email</label>
-              </div>
-              {{ form.submit( class=sbmt ) }}
+              <form action="/profil/edit" method="post">
+                <div class="inputbox">
+                  {{ form.hidden_tag() }} {{ form.name() }}
+                  <label for="name">name</label>
+                </div>
+                <div class="inputbox">
+                  {{ form.hidden_tag() }} {{ form.email() }}
+                  <label for="email">email</label>
+                </div>
+                {{ form.submit( class=sbmt ) }}
+              </form>
             </div>
           </div>
           <div class="info2">

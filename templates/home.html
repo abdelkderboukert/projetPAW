@@ -76,10 +76,9 @@
       </div>
       <div class="main">
         <ul>
-          <ul>
-            {% for result in results %}{% if id_user==current_user %}
+          {% for result in results %}{% if result.id_user == current_user.id %}
             <div
-              class="todo_con1 {{ 'Highest' if  result.pre == '1' else 'Medium' if  result.pre == '2' else 'Normal' if  result.pre == '3' else '' }}"
+              class="todo_con1 {{ 'Highest' if result.pre == '1' else 'Medium' if result.pre == '2' else 'Normal' if result.pre == '3' else '' }}"
             >
               <h3 class="hhr">{{ result.title }}</h3>
               <a
@@ -88,7 +87,7 @@
                 ><button id="dlt">Delete</button></a
               >
             </div>
-            {% endif %}{% endfor %}
+            {% endif %} {% endfor %}
           </ul>
         </ul>
       </div>
@@ -157,3 +156,15 @@
   src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
 ></script>
 {% endblock %}
+{% for result in results %}{% if id_user==current_user %}
+<div
+  class="todo_con1 {{ 'Highest' if  result.pre == '1' else 'Medium' if  result.pre == '2' else 'Normal' if  result.pre == '3' else '' }}"
+>
+  <h3 class="hhr">{{ result.title }}</h3>
+  <a
+    href="{{ url_for('delete_task', task_id=result.id) }}"
+    class="dlt1"
+    ><button id="dlt">Delete</button></a
+  >
+</div>
+{% endif %}{% endfor %}

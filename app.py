@@ -133,6 +133,8 @@ def home():
         results = to_do.query.filter(to_do.title.like(f'%{search_query}%')).all()
     else:
         results = []
+
+        
     dailys=to_do.query.filter(to_do.id_user==current_user.id)   
     current_date = datetime.datetime.now().date()
     current_hour = datetime.datetime.now().hour

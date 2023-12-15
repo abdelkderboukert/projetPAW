@@ -223,8 +223,9 @@ def add_daily():
         p = int(form.dro.data)
         hour = int(form.hour_to_do.data)
         min = int(form.min_to_do.data)
-        while k != -1: 
-          form.date_to_do.data = form.date_to_do.data + timedelta(days=k)
+        while k!=-1:
+          if k!=0 : 
+           form.date_to_do.data = form.date_to_do.data + timedelta(days=1)
           new_task = to_do(title=form.title.data, date_to_do=form.date_to_do.data, hour_to_do=hour, min_to_do=min, text=form.text.data,id_user= current_user.id , pre=p, val=0)
           db.session.add(new_task)
           db.session.commit()
@@ -232,7 +233,7 @@ def add_daily():
 
         
         flash('Task added successfully!', 'success')
-        return redirect(url_for('add_daily'))
+        return redirect(url_for('todo'))
 
     tasks = to_do.query.all()
     return render_template('add_daily.html', form=form, tasks=tasks)

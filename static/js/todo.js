@@ -34,7 +34,7 @@ for (const el of todo) {
 }
 let butt = document.querySelectorAll(".container .todo .main .todo_con .do");
 console.log(butt);
-for (const el of todo) {
+for (const el of butt) {
   const id = el.querySelector("#id").textContent;
 
   el.addEventListener("click", async function () {

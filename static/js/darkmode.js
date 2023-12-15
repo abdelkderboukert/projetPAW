@@ -33,23 +33,3 @@ document.addEventListener("DOMContentLoaded", function () {
     section.classList.remove("dark");
   }
 });
-
-/*let todo = document.querySelectorAll(".container .todo .main .todo_con");
-let txt1 = document.getElementById("txt1");
-console.log(todo);
-
-for (const el of todo) {
-  const datd = el.querySelector("#pre");
-  if (datd.textContent == "1") {
-    el.style.backgroundColor = el.style.backgroundColor.replace(
-      "#f0f8ff",
-      "red"
-    );
-  }
-  if (datd.textContent == "2") {
-    el.style.backgroundColor = el.style.backgroundColor.replace(
-      "#f0f8ff",
-      "red"
-    );
-  }
-}*/

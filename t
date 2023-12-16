@@ -55,30 +55,30 @@
              # placeholder="search", autofocus=true) }}
 
 
-from flask import Flask, render_template, redirect, url_for, flash, request, jsonify
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column, Integer, String
-from waitress import serve
-from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, ValidationError, IntegerField, DateField
-from wtforms.validators import DataRequired, equal_to, Length
-from flask_login import UserMixin, login_user, login_manager, logout_user, login_required, current_user, login_remembered,LoginManager
-from werkzeug.security import generate_password_hash, check_password_hash
-from datetime import datetime, timedelta
-import datetime
+#from flask import Flask, render_template, redirect, url_for, flash, request, jsonify
+#from flask_sqlalchemy import SQLAlchemy
+#from sqlalchemy import Column, Integer, String
+#from waitress import serve
+#from flask_wtf import FlaskForm
+#from wtforms import StringField, PasswordField, SubmitField, BooleanField, ValidationError, IntegerField, DateField
+#from wtforms.validators import DataRequired, equal_to, Length
+#from flask_login import UserMixin, login_user, login_manager, logout_user, login_required, current_user, login_remembered,LoginManager
+#from werkzeug.security import generate_password_hash, check_password_hash
+#from datetime import datetime, timedelta
+#import datetime
 
-app = Flask(__name__)
-app.config['SECRET_KEY'] = '5511467d654732b6d9875da2691f78fd'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
-db = SQLAlchemy(app)
+#app = Flask(__name__)
+#app.config['SECRET_KEY'] = '5511467d654732b6d9875da2691f78fd'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
+#db = SQLAlchemy(app)
 # flask_login stuff
-login_manager = LoginManager()
-login_manager.init_app(app)
-login_manager.login_view = 'login'
+#login_manager = LoginManager()
+#login_manager.init_app(app)
+#login_manager.login_view = 'login'
 
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
+#@login_manager.user_loader
+#def load_user(user_id):
+#    return User.query.get(int(user_id))
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)

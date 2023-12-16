@@ -19,7 +19,7 @@ from validate_email import validate_email
 
 app = Flask(__name__)
 #csrf = CSRFProtect(app)
-REMEMBER_COOKIE_DURATION = timedelta(days=30)
+REMEMBER_COOKIE_DURATION = timedelta(days=0)
 app.config['SECRET_KEY'] = '5511467d654732b6d9875da2691f78fd'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
 db = SQLAlchemy(app)

@@ -12,7 +12,9 @@ body {
   padding: 0 10px;
   justify-content: center;
   min-height: 100vh;
-  background: #9b59b6;
+  background-image: url("{{ url_for('static', filename='photo/73dbc1990dc1243bc1c2e65358129cae.jpg')}}");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .wrapper {
   width: 450px;
@@ -104,4 +106,11 @@ header .current-date {
 }
 .days li:not(.active):hover::before {
   background: #f2f2f2;
+}
+#imgg {
+  background-image: url("static/photo/random_img.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
 }

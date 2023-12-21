@@ -133,8 +133,7 @@ def home():
         results = to_do.query.filter(to_do.title.like(f'%{search_query}%')).all()
     else:
         results = []
-
-        
+   
     dailys=to_do.query.filter(to_do.id_user==current_user.id)   
     current_date = datetime.datetime.now().date()
     current_hour = datetime.datetime.now().hour
@@ -146,7 +145,7 @@ def home():
      di.val= '1'
      db.session.add(di)
      db.session.commit() 
-    return render_template('home.html',dailys=dailys, hour= current_hour, date=current_date, results=results)
+    return render_template('home.html',dailys=dailys, hour= current_hour, date=current_date, results=results, search_query=search_query)
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
@@ -281,7 +280,7 @@ def archive():
     dailys=to_do.query.filter(to_do.id_user==current_user.id)
     current_date = datetime.datetime.now().date()
     current_hour = datetime.datetime.now().hour
-    return render_template('archive.html', dailys=dailys, form1=form1, date= current_date, hour= current_hour, results=results)
+    return render_template('archive.html', dailys=dailys, form1=form1, date= current_date, hour= current_hour, results=results, search_query=search_query)
 
 @app.route('/todo', methods = ['GET','POST'])
 @login_required
@@ -303,7 +302,7 @@ def todo():
      di.val= '1'
      db.session.add(di)
      db.session.commit()
-    return render_template('todo.html', dailys=dailys, form1=form1, date= current_date, hour= current_hour, results=results)
+    return render_template('todo.html', dailys=dailys, form1=form1, date= current_date, hour= current_hour, results=results, search_query=search_query)
     
 @app.route('/profil/edit', methods=['GET','POST'])
 @login_required
@@ -355,7 +354,6 @@ def profil_edit():
 @app.route('/test', methods = ['POST','GET'])
 def test():
     form = edit_userForm()
-
     user = current_user
     if form.validate_on_submit():
         print(form.name.data)

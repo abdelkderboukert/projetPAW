@@ -14,7 +14,12 @@
         <div class="todo">
           <div class="cherche">
             <form action="{{ url_for('todo') }}" method="get">
-              <input type="text" name="query" placeholder="Search" id="nav" />
+              <input
+                type="text"
+                name="query"
+                placeholder="{{'Search' if not search_query else search_query }}"
+                id="nav"
+              />
               <input type="submit" value="Search" id="bt1" />
             </form>
             <button id="drk">dark mode</button>
@@ -52,9 +57,10 @@
                 {% endif %} {% endif %} {% endfor %}
               </ul>
             </ul>
-            {% for daily in dailys %} {% if (daily.date_to_do.date() > date) or
-            ( (daily.date_to_do.date() == date) and (daily.hour_to_do > hour or
-            hour == daily.hour_to_do) ) %} {% if daily.val == '0' %}
+            {% if not search_query %} {% for daily in dailys %} {% if
+            (daily.date_to_do.date() > date) or ( (daily.date_to_do.date() ==
+            date) and (daily.hour_to_do > hour or hour == daily.hour_to_do) ) %}
+            {% if daily.val == '0' %}
             <div
               class="todo_con {{ 'Highest' if daily.pre == '1' else 'Medium' if daily.pre == '2' else 'Normal' if daily.pre == '3' else '' }}"
             >
@@ -79,7 +85,7 @@
               <p class="hid" id="pre">{{ daily.pre }}</p>
               <p class="hid" id="id">{{ daily.id }}</p>
             </div>
-            {% endif %} {% endif %} {% endfor %}
+            {% endif %} {% endif %} {% endfor %}{% endif %}
           </div>
         </div>
         <div class="todof">

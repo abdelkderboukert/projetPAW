@@ -15,7 +15,12 @@
           <div class="cherche">
             <!--hvvgggggggggwvbvwvbwvbwxb wxv wcv wcv cwv cv xv xv -->
             <form action="{{ url_for('archive') }}" method="get">
-              <input type="text" name="query" placeholder="Search" id="nav" />
+              <input
+                type="text"
+                name="query"
+                placeholder="{{'Search' if not search_query else search_query }}"
+                id="nav"
+              />
               <input type="submit" value="Search" id="bt1" />
             </form>
             <button id="drk">dark mode</button>

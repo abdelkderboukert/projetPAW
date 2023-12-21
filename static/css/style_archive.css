@@ -1,0 +1,365 @@
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Orbitron", sans-serif;
+}
+
+section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  background-color: #f0f8ff;
+  background-position: center;
+  background-size: cover;
+  position: fixed;
+}
+
+section.dark {
+  background: #24292d;
+  color: #fff;
+}
+
+.container {
+  width: 80%;
+  height: 80%;
+  display: flex;
+  flex-direction: row;
+}
+
+.todo {
+  width: 700px;
+  height: 500px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+section.dark .todo {
+  background-color: #323840;
+  box-shadow: 0 5px 10px #00001a;
+}
+
+.cherche {
+  width: 680px;
+  height: 70px;
+  border-radius: 20px;
+  margin: 10px 10px 0px 10px;
+  display: flex;
+  flex-direction: row;
+}
+
+#bt2 {
+  width: 100px;
+  height: 40px;
+  border-radius: 0px 20px 20px 0px;
+  background-color: #f0f8ff;
+  margin: 10px 10px 10px 0px;
+  border: none;
+}
+
+#bt1 {
+  width: 100px;
+  height: 40px;
+  border-radius: 0px 20px 20px 0px;
+  background-color: #f0f8ff;
+  /*border: 2px solid black;*/
+  border: none;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+section.dark #bt1 {
+  background-color: #24292d;
+  color: #fff;
+  box-shadow: 0 5px 10px #00001a;
+}
+
+section.dark #bt2 {
+  background-color: #24292d;
+  color: #fff;
+}
+
+#nav {
+  width: 350px;
+  height: 40px;
+  background-color: white;
+  border-radius: 20px 0px 0px 20px;
+  margin: 10px 0px 10px 0px;
+  padding: 0px 0px 0px 10px;
+  /*border: 2px solid black;*/
+  border: none;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+section.dark #nav {
+  background-color: #323840;
+  color: #fff;
+  box-shadow: 0 5px 10px #00001a;
+}
+
+.submit {
+  width: 100px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: #f0f8ff;
+  margin: 10px 10px 10px 0px;
+  border: none;
+}
+
+#drk {
+  width: 100px;
+  height: 40px;
+  border-radius: 20px 20px 20px 20px;
+  background-color: #f0f8ff;
+  margin: 10px 10px 10px 100px;
+  border: none;
+}
+
+section.dark #drk {
+  background-color: #24292d;
+  color: #fff;
+  box-shadow: 0 5px 10px #00001a;
+}
+
+.main {
+  width: 680px;
+  height: 400px;
+  background-color: #fff;
+  border-radius: 10px;
+  margin: 0px 10px 10px 10px;
+  /*display: flex;*/
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+section.dark .main {
+  background-color: #323840;
+  color: #fff;
+}
+
+.todo_con {
+  width: 640px;
+  height: 75px;
+  border-radius: 20px;
+  background-color: #f0f8ff;
+  margin: 10px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  line-height: 75px;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+
+section.dark .todo_con {
+  background-color: #24292d;
+  box-shadow: 0 5px 10px #00001a;
+}
+
+.todo_con h3 {
+  margin: 0pc 0px 0px 10px;
+}
+
+.Highest {
+  background: linear-gradient(89deg, #f0f8ff 14%, #ff0000 100%);
+}
+
+section.dark .Highest {
+  background: linear-gradient(89deg, #24292d 14%, #ff0000 100%);
+}
+
+.Medium {
+  background: linear-gradient(89deg, #f0f8ff 14%, #ff6900 100%);
+}
+
+section.dark .Medium {
+  background: linear-gradient(89deg, #24292d 14%, #ff6900 100%);
+}
+
+.Normal {
+  background: linear-gradient(89deg, #f0f8ff 14%, #00ff04 100%);
+}
+
+section.dark .Normal {
+  background: linear-gradient(89deg, #24292d 14%, #00ff04 100%);
+}
+
+.ckbox {
+  width: 20px;
+  height: 20px;
+  accent-color: #8528d6;
+}
+
+.ckbox:checked {
+  accent-color: black;
+}
+
+.todof {
+  width: 400px;
+  height: 500px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  margin: 10px;
+}
+
+section.dark .todof {
+  background-color: #24292d;
+  color: #fff;
+  box-shadow: 0 5px 10px #00001a;
+}
+
+.inf {
+  width: 400px;
+  height: 450px;
+  background-color: #fff;
+  border-radius: 10px 10px 10px 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+section.dark .inf {
+  background-color: #24292d;
+  border: 2px solid white;
+}
+
+#tit {
+  width: 400px;
+  height: 100px;
+  align-items: center;
+  align-content: center;
+  text-align: center;
+}
+
+#titl {
+  /*line-height: 30px;*/
+  text-align: center;
+  margin: 40px 0px 0px 0px;
+  text-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+section.dark #titl {
+  /*color: black;*/
+  text-shadow: 0 5px 10px #00001a;
+}
+
+.conf {
+  height: 50px;
+  width: 400px;
+  align-items: center;
+  align-content: center;
+  line-height: 50px;
+  display: flex;
+  flex-direction: row;
+}
+
+.tff {
+  width: 163px;
+  height: 50px;
+  align-items: center;
+  align-content: center;
+  text-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  margin: 5px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+section.dark .tff {
+  text-shadow: 0 5px 10px #00001a;
+}
+
+.con {
+  height: 50px;
+  width: 400px;
+  align-items: center;
+  align-content: center;
+  line-height: 50px;
+  display: flex;
+  flex-direction: row;
+}
+
+.tf {
+  width: 163px;
+  height: 50px;
+  /* background-color: #78b5eb;*/
+  align-items: center;
+  align-content: center;
+  border-radius: 10px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  margin: 5px;
+  text-align: center;
+  font-weight: bolder;
+}
+
+section.dark .tf {
+  box-shadow: 0 5px 10px #00001a;
+}
+
+.ulinfo {
+  margin: 0px 0px 10px 30px;
+}
+
+#inf1 {
+  color: #4615b9;
+  margin: 0px 0px 0px 10px;
+}
+
+#inf2 {
+  color: #4615b9;
+  margin: 0px 0px 0px 10px;
+}
+
+#inf3 {
+  color: #4615b9;
+  margin: 0px 0px 0px 10px;
+}
+
+#det {
+  margin: 20px 0px 0px 10px;
+  text-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+section.dark #det {
+  text-shadow: 0 5px 10px #00001a;
+}
+
+#txt1 {
+  margin: 40px 0px 0px 10px;
+  overflow: auto;
+}
+
+.navb {
+  height: 50px;
+  width: 400px;
+  border-radius: 0px 10px 0px 0px;
+  border-radius: 0px 0px 10px 10px;
+  display: flex;
+  flex-direction: row;
+}
+
+.option {
+  height: 50px;
+  width: 100px;
+  background-color: #fff;
+  border: none;
+  border-radius: 0px 0px 10px 10px;
+}
+
+section.dark .option {
+  background-color: #24292d;
+  color: #fff;
+}
+.hid {
+  display: none;
+}
+
+.dn {
+  padding: 0 0 0 10px;
+  size: 10px;
+}
